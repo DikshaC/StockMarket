@@ -1,4 +1,4 @@
 .*sql
 /build/
 /.classpath
-.idea/*
+.idea/
