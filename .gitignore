@@ -1,3 +1,4 @@
 .*sql
 /build/
 /.classpath
+.idea/*
