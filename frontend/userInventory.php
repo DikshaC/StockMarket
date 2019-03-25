@@ -28,30 +28,16 @@
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
 
-    <style>
-        .table {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
+    <?php
+    require('db_connection.php');
+    global $connection;
+    $conn = $connection;
+    $userId = 1;
 
-        .table td, .table th {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-
-        .table tr:nth-child(even){background-color: #f2f2f2;}
-
-        .table tr:hover {background-color: #ddd;}
-
-        .table th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            background-color: #4CAF50;
-            color: white;
-        }
-    </style>
+    $query = "SELECT user_stocks.num_shares as quantity, company.name as company_name 
+    FROM user_stocks join company ON user_stocks.companyId=company.id where user_stocks.delete_flag=0 AND company.delete_flag=0 AND user_stocks.userId=".$userId;
+    $results = $conn->query($query);
+    ?>
 
 </head>
 
@@ -153,26 +139,21 @@
             <th>Company Name</th>
             <th>Quantity</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>Facebook</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Facebook</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Facebook</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Facebook</td>
-            <td>5</td>
-        </tr>
+
+        <?php
+        $i=0;
+        while ($result = $results->fetch_assoc()) {
+            $i = $i + 1;
+            ?>
+
+            <tr>
+                <td><?php echo $i ?></td>
+                <td><?php echo $result['company_name'] ?></td>
+                <td><?php echo $result['quantity'] ?></td>
+            </tr>
+            <?php
+        }
+        ?>
     </table>
 </div>
 
