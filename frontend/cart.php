@@ -53,15 +53,26 @@
         }
     </style>
 
+
+
     <?php
     require('db_connection.php');
     global $connection;
     $conn = $connection;
     $userId = 1;
-    $query = "SELECT * FROM cart where userId=".$userId."join company ON cart.companyId=company.id";
-    $results = $conn->query($query);
 
+    if(isset($_POST['number'])) {
+        $id = $_POST['number'];
+        $query1 = "Update cart set delete_flag=1 where id=".$id;
+        $conn->query($query1);
+    }
+
+    $query = "SELECT cart.id AS id, cart.companyId as companyId, cart.total_price as total_price, cart.quantity as quantity, cart.buy_sell as buy_sell,cart.delete_flag as delete_flag, company.name as companyName 
+    FROM cart join company ON cart.companyId=company.id where cart.delete_flag=0 AND company.delete_flag=0 AND cart.userId=".$userId;
+    $results = $conn->query($query);
     ?>
+
+
 </head>
 
 <body>
@@ -156,7 +167,8 @@
 
 <div class="section-t8 container">
     <h3>Cart</h3>
-    <table class="table">
+
+    <table class="table" >
         <tr>
             <th>S.No</th>
             <th>Company Name</th>
@@ -171,42 +183,21 @@
         $i=0;
         while ($result = $results->fetch_assoc()) {
             $i= $i+1;
+            $a = $result['id'];
         ?>
 
-
         <tr>
-            <td> <?php $i ?>  </td>
-            <td> <?php $result['name'] ?> </td>
-            <td><?php $result['price'] ?></td>
-            <td><?php $result['quantity'] ?></td>
-            <td><?php $result['buy_sell'] ?></td>
-            <td><i class="fa fa-trash" aria-hidden="true"></i></td>
+            <td> <?php echo $i ?>  </td>
+            <td> <?php echo $result['companyName'] ?> </td>
+            <td><?php echo $result['total_price'] ?></td>
+            <td><?php echo $result['quantity'] ?></td>
+            <td><?php echo $result['buy_sell'] ?></td>
+            <td ><i  id="<?php echo $result['id'] ?>"  class="fa fa-trash"  aria-hidden="true"></i></td>
         </tr>
         <?php
         }
         ?>
 
-        <tr>
-            <td>1</td>
-            <td>Facebook</td>
-            <td>99.27</td>
-            <td>5</td>
-            <td><i class="fa fa-trash" aria-hidden="true"></i></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Facebook</td>
-            <td>99.27</td>
-            <td>5</td>
-            <td><i class="fa fa-trash" aria-hidden="true"></i></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Facebook</td>
-            <td>99.27</td>
-            <td>5</td>
-            <td><i class="fa fa-trash" aria-hidden="true"></i></td>
-        </tr>
     </table>
 
     <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Checkout</button>
@@ -362,18 +353,17 @@
 <div id="preloader"></div>
 
 <!-- JavaScript Libraries -->
-<script src="lib/jquery/jquery.min.js"></script>
-<script src="lib/jquery/jquery-migrate.min.js"></script>
 <script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/easing/easing.min.js"></script>
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Contact Form JavaScript File -->
 <script src="contactform/contactform.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
-
+<script src="js/cart.js"></script>
 </body>
 </html>
