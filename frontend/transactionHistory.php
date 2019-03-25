@@ -31,32 +31,20 @@
 
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
-
-    <style>
-        .table {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        .table td, .table th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        .table tr:nth-child(even){background-color: #f2f2f2;}
-
-        .table tr:hover {background-color: #ddd;}
-
-        .table th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #4CAF50;
-            color: white;
-        }
-    </style>
-
+    <?php
+    require('db_connection.php');
+    global $connection;
+    $conn = $connection;
+    $id = 1;
+    $buy_query = "SELECT ut.id, c.name, td.price, td.quantity 
+              FROM user_transaction ut JOIN transaction_details td JOIN company c
+              ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='b'";
+    $buy_results = $conn->query($buy_query);
+    $sell_query = "SELECT ut.id, c.name, td.price, td.quantity 
+              FROM user_transaction ut JOIN transaction_details td JOIN company c
+              ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='s'";
+    $sell_results = $conn->query($sell_query);
+    ?>
 </head>
 
 <body>
@@ -150,6 +138,7 @@
 <!--/ Nav End /-->
 
 <div class="section-t8 container">
+
     <ul class="nav nav-tabs md-tabs" id="myTabMD" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#Bought" role="tab">Bought Stock</a>
@@ -160,6 +149,7 @@
     </ul>
     <div class="tab-content card pt-5" id="myTabContentMD">
         <div class="tab-pane fade show active" id="Bought" role="tabpanel" aria-labelledby="home-tab-md">
+            <?php $i=0; while ($buy_result = $buy_results->fetch_assoc()) { $i=$i+1;?>
             <table class="table">
                 <tr>
                     <th>S.No</th>
@@ -169,36 +159,17 @@
                     <th>Quantity</th>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>5432</td>
-                    <td>Facebook</td>
-                    <td>99.27</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>5432</td>
-                    <td>Facebook</td>
-                    <td>99.27</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>5432</td>
-                    <td>Facebook</td>
-                    <td>99.27</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>5432</td>
-                    <td>Facebook</td>
-                    <td>99.27</td>
-                    <td>5</td>
+                    <td><?php echo $i?></td>
+                    <td><?php echo $buy_result['id']?></td>
+                    <td><?php echo $buy_result['name']?></td>
+                    <td><?php echo $buy_result['price']?></td>
+                    <td><?php echo $buy_result['quantity']?></td>
                 </tr>
             </table>
+            <?php } ?>
         </div>
         <div class="tab-pane fade" id="Sold" role="tabpanel" aria-labelledby="profile-tab-md">
+            <?php $i=0; while ($sell_result = $sell_results->fetch_assoc()) { $i=$i+1;?>
             <table class="table">
                 <tr>
                     <th>S.No</th>
@@ -208,34 +179,14 @@
                     <th>Quantity</th>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>5432</td>
-                    <td>Facebook</td>
-                    <td>99.27</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>5432</td>
-                    <td>Facebook</td>
-                    <td>99.27</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>5432</td>
-                    <td>Facebook</td>
-                    <td>99.27</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>5432</td>
-                    <td>Facebook</td>
-                    <td>99.27</td>
-                    <td>5</td>
+                    <td><?php echo $i?></td>
+                    <td><?php echo $sell_result['id']?></td>
+                    <td><?php echo $sell_result['name']?></td>
+                    <td><?php echo $sell_result['price']?></td>
+                    <td><?php echo $sell_result['quantity']?></td>
                 </tr>
             </table>
+            <?php } ?>
         </div>
     </div>
 </div>
