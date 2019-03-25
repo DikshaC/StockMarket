@@ -121,9 +121,60 @@
 </nav>
 <!--/ Nav End /-->
 
-
 <div class="col-md-12 section-t8">
-    <h1>HIIII</h1>
+    <div class="container">
+        <h3>Profile</h3>
+        <form class="form" action="##" method="post" id="registrationForm">
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label for="first_name"><strong>First Name</strong></label>
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label for="last_name"><strong>Last Name</strong></label>
+                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label for="gender"><strong>Gender</strong></label>
+                    <input type="text" class="form-control" name="gender" id="gender" placeholder="gender" title="enter your gender.">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label for="phone"><strong>Phone</strong></label>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-xs-6">
+                    <label for="email"><strong>Email</strong></label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-xs-6">
+                    <label for="password"><strong>Password</strong></label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <br>
+                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                    <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 
@@ -138,7 +189,7 @@
                     </div>
                     <div class="w-body-a">
                         <p class="w-text-a color-text-a">
-                            Leading financial services company and pioneer in the online stock sales industry. It’s the platform for traders passionate about the markets. Intuitive and easy-to-use. Packed with opportunity-finding and market-seizing tools and features.
+                            Leading financial services company and pioneer in the online stock sales industry. Itâ€™s the platform for traders passionate about the markets. Intuitive and easy-to-use. Packed with opportunity-finding and market-seizing tools and features.
                         </p>
                     </div>
                     <div class="w-footer-a">
