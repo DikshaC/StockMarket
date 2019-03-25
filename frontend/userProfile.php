@@ -28,6 +28,20 @@
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
 
+    <?php
+        require('db_connection.php');
+        global $connection;
+        $conn = $connection;
+        $userId = 1;
+        if(isset($_POST['submit']))
+        {
+            $update_query = "update person set NAME= '{$_POST['first_name']}',gender='{$_POST['gender']}',username='{$_POST['username']}',email='{$_POST['email']}',pass='{$_POST['password']}',phone={$_POST['phone']} where id=".$userId;
+            $update_result = $conn->query($update_query);
+            echo "update: ".$update_result;
+        }
+        $query = "SELECT * FROM person where id={$userId} and delete_flag=0";
+        $results = $conn->query($query);
+    ?>
 
 </head>
 
@@ -123,57 +137,61 @@
 
 <div class="col-md-12 section-t8">
     <div class="container">
+        <?php while ($result = $results->fetch_assoc()) { ?>
         <h3>Profile</h3>
-        <form class="form" action="##" method="post" id="registrationForm">
+        <form class="form" action="userProfile.php" method="post" id="userProfileForm">
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="first_name"><strong>First Name</strong></label>
-                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" value="<?php echo $result['NAME']; ?>">
+
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="last_name"><strong>Last Name</strong></label>
-                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" value="<?php echo $result['NAME']; ?>">
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="gender"><strong>Gender</strong></label>
-                    <input type="text" class="form-control" name="gender" id="gender" placeholder="gender" title="enter your gender.">
+                    <input type="text" class="form-control" name="gender" id="gender" placeholder="gender" value="<?php echo $result['gender']; ?>">
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="phone"><strong>Phone</strong></label>
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" value="<?php echo $result['phone']; ?>">
                 </div>
             </div>
-
             <div class="form-group">
-
                 <div class="col-xs-6">
                     <label for="email"><strong>Email</strong></label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" value="<?php echo $result['email']; ?>">
                 </div>
             </div>
             <div class="form-group">
-
+                <div class="col-xs-6">
+                    <label for="username"><strong>Username</strong></label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="username" value="<?php echo $result['username']; ?>">
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-xs-6">
                     <label for="password"><strong>Password</strong></label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password" value="<?php echo $result['pass']; ?>">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
                     <br>
-                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                    <button class="btn btn-lg btn-success" type="submit" name="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
                     <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
                 </div>
             </div>
         </form>
+        <?php } ?>
     </div>
 </div>
 

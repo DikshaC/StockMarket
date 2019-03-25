@@ -10,9 +10,9 @@
 //use global $connection; in every file
 
 $servername = "localhost";
-$username = "diksha";
-$password = "diksha";
-$dbname = "webpl";
+$username = "root";
+$password = "";
+$dbname = "stock_data";
 
 // Create connection
 global $connection;
