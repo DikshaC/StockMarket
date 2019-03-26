@@ -19,6 +19,61 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
+
+    <?php
+    require('db_connection.php');
+    global $connection;
+    $conn = $connection;
+    $userId = 1;
+    $cart;
+    if(isset($_POST['cc_submit'])|| isset($_POST['pp_submit'])){
+        // Insert into user_transaction table
+        $total_amount = 0;
+        $buy_query = "SELECT SUM(total_price) AS buy_sum FROM cart WHERE userid={$userId} AND buy_sell='b' UNION
+                          SELECT SUM(total_price) AS sell_sum FROM cart WHERE userid={$userId} AND buy_sell='s'";
+        $buy_results = $conn->query($buy_query);
+        while ($buy_result = $buy_results->fetch_assoc()){
+            $total_amount = $buy_result['sell_sum'] - $buy_result['buy_sum'];
+        }
+        if(isset($_POST['cc_submit'])){
+            $payment_mode = 'Card';
+            $_POST['cc_submit'] = null;
+        }
+        else{
+            $payment_mode = 'PayPal';
+            $_POST['pp_submit'] = null;
+        }
+        $curr_date=date("Y-m-d");
+        $ut_query = "INSERT INTO user_transaction(userId, amount, transactionDate, paymentMode, delete_flag) 
+                    VALUES ({$userId},{$total_amount},'{$curr_date}','{$payment_mode}',0)";
+        $ut_results = $conn->query($ut_query);
+
+
+        // Insert into transaction_details table
+        $ut_rows;
+        $ut_rows_query = "SELECT id FROM user_transaction ORDER BY id DESC LIMIT 1";
+        $ut_rows_results = $conn->query($ut_rows_query);
+        while ($ut_rows_result = $ut_rows_results->fetch_assoc()) {
+            $ut_rows = $ut_rows_result['id'];
+        }
+        $cart_query = "SELECT cart.id AS id, cart.companyId as companyId, cart.total_price as total_price, cart.quantity as quantity, cart.buy_sell as buy_sell,cart.delete_flag as delete_flag, company.name as companyName 
+                      FROM cart join company ON cart.companyId=company.id 
+                      where cart.delete_flag=0 AND company.delete_flag=0 AND cart.userId=".$userId;
+        $cart_results = $conn->query($cart_query);
+        while ($cart_result = $cart_results->fetch_assoc()) {
+            $td_query = "INSERT INTO transaction_details(transactionId, companyId, price, buy_sell, quantity, delete_flag) 
+                    VALUES ({$ut_rows},{$cart_result['companyId']},{$cart_result['total_price']},'{$cart_result['buy_sell']}',{$cart_result['quantity']},0)";
+            $td_results = $conn->query($td_query);
+        }
+
+        // Remove items from cart table
+        $cart_rm_query = "UPDATE cart SET delete_flag = 1 where cart.delete_flag=0 AND cart.userId=".$userId;
+        $cart_remove = $conn->query($cart_rm_query);
+
+        //redirect to index page after successful updation
+        header('Location: index.php');
+    }
+    ?>
 </head>
 <body>
 <div class="click-closed"></div>
@@ -123,7 +178,7 @@
                 <div class="card-body">
                     <h3 class="text-center">Credit Card Payment</h3>
                     <hr>
-                    <form class="form" role="form">
+                    <form class="form" role="form" action="payment.php" method="post">
                         <div class="form-group">
                             <label for="cc_name">Card Holder's Name</label>
                             <input type="text" class="form-control" id="cc_name" pattern="\w+ \w+.*" required="required">
@@ -172,7 +227,7 @@
                                 <button type="reset" class="btn btn-default btn-lg btn-block">Cancel</button>
                             </div>
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
+                                <button type="submit" name="cc_submit" class="btn btn-success btn-lg btn-block">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -184,7 +239,7 @@
                 <div class="card-body">
                     <h3 class="text-center">PayPal Payment</h3>
                     <hr>
-                    <form class="form" role="form">
+                    <form class="form" role="form" action="payment.php" method="post">
                         <div class="form-group">
                             <label for="cc_name">Email</label>
                             <input type="email" class="form-control" id="email" required="required">
@@ -199,7 +254,7 @@
                                 <button type="reset" class="btn btn-default btn-lg btn-block">Cancel</button>
                             </div>
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
+                                <button type="submit" name="pp_submit" class="btn btn-success btn-lg btn-block">Submit</button>
                             </div>
                         </div>
                     </form>
