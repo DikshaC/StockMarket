@@ -73,52 +73,63 @@ $(document).ready(function () {
         $userId = 1;
 
         var data = {
-            id: $val,
+            company_id: $val,
             quantity : $quantity,
             buy_sell : $buy_sell,
             price: $total_price,
             userId: $userId
         };
 
-        var mapForm = document.createElement("form");
-        mapForm.target = "Map";
-        mapForm.method = "POST"; // or "post" if appropriate
-        mapForm.action = "payment.php";
+        $.ajax({
+            type: "POST",
+            url: "../frontend/indexHelper.php",
+            dataType: "text",
+            data: data,
+            success:function (response) {
 
-        var mapInput = document.createElement("input");
-        mapInput.type = "hidden";
-        mapInput.name = "id";
-        mapInput.value = $val;
-        mapForm.appendChild(mapInput);
+                if(response == "yes") {
 
-        var mapInput = document.createElement("input");
-        mapInput.type = "hidden";
-        mapInput.name = "quantity";
-        mapInput.value = $quantity;
-        mapForm.appendChild(mapInput);
+                    var mapForm = document.createElement("form");
+                    mapForm.target = "Map";
+                    mapForm.method = "POST"; // or "post" if appropriate
+                    mapForm.action = "payment.php";
 
-        var mapInput = document.createElement("input");
-        mapInput.type = "hidden";
-        mapInput.name = "buy_sell";
-        mapInput.value = $buy_sell;
-        mapForm.appendChild(mapInput);
+                    var mapInput = document.createElement("input");
+                    mapInput.type = "hidden";
+                    mapInput.name = "id";
+                    mapInput.value = $val;
+                    mapForm.appendChild(mapInput);
 
-        var mapInput = document.createElement("input");
-        mapInput.type = "hidden";
-        mapInput.name = "price";
-        mapInput.value = $total_price;
-        mapForm.appendChild(mapInput);
+                    var mapInput = document.createElement("input");
+                    mapInput.type = "hidden";
+                    mapInput.name = "quantity";
+                    mapInput.value = $quantity;
+                    mapForm.appendChild(mapInput);
 
-        document.body.appendChild(mapForm);
+                    var mapInput = document.createElement("input");
+                    mapInput.type = "hidden";
+                    mapInput.name = "buy_sell";
+                    mapInput.value = $buy_sell;
+                    mapForm.appendChild(mapInput);
 
-        mapForm.submit();
-       // map = window.open("http://localhost/StockMarket/frontend/payment.php", "Map", "status=0,title=0,height=600,width=800,scrollbars=1");
+                    var mapInput = document.createElement("input");
+                    mapInput.type = "hidden";
+                    mapInput.name = "price";
+                    mapInput.value = $total_price;
+                    mapForm.appendChild(mapInput);
 
-        // if (map) {
-        //     mapForm.submit();
-        // } else {
-        //     alert('You must allow popups for this map to work.');
-        // }
+                    document.body.appendChild(mapForm);
+
+                    mapForm.submit();
+                    alert("Please put your payment information");
+
+                }
+
+                else{
+                    alert("You don't have enough stocks to sell for this company");
+                }
+            }
+        });
 
 
     });
