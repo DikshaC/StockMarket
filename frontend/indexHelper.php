@@ -23,7 +23,7 @@ if(isset($_POST['id'])) {
 
     if ($buy_sell == 's') {
 
-
+        //if the user's cart exists in cart table
         if (mysqli_num_rows($results)>0){
 
             while($num_shares = $results->fetch_assoc()){
@@ -37,8 +37,8 @@ if(isset($_POST['id'])) {
                     $query = "Insert into cart(userId, companyId,total_price,buy_sell,quantity) values (".$userId.",".$id.",".$price.",'".$buy_sell."',".$quantity.")";
                     $conn->query($query);
 
-                    $query = "Update user_stocks set num_shares= num_shares-".$quantity." where userId=".$userId." and companyId=".$id." and delete_flag=0";
-                    $conn->query($query);
+                    //$query = "Update user_stocks set num_shares= num_shares-".$quantity." where userId=".$userId." and companyId=".$id." and delete_flag=0";
+                    //$conn->query($query);
                     echo "Added items to sell in cart";
                 }
             }
@@ -46,15 +46,16 @@ if(isset($_POST['id'])) {
         }
         //if user entry not in table
         else {
-            echo "You don't have any stocks to sold for this company.";
+            echo "You don't have any stocks to sell for this company.";
 
         }
     }
 
+    //if the user is buying the stocks
     else{
         $query = "Insert into cart(userId, companyId,total_price,buy_sell,quantity) values (".$userId.",".$id.",".$price.",'".$buy_sell."',".$quantity.")";
         $conn->query($query);
-
+/*
         if (mysqli_num_rows($results)>0){
             $query = "Update user_stocks set num_shares= num_shares+".$quantity." where userId=".$userId." and companyId=".$id." and delete_flag=0";
             $conn->query($query);
@@ -66,11 +67,13 @@ if(isset($_POST['id'])) {
             $conn->query($query);
             echo "Added items to buy in cart";
         }
-
+*/
+    echo "Added items to buy in cart";
     }
 
 
 }
+$conn->close();
 
 //
 

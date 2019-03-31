@@ -16,5 +16,12 @@ $(document).ready(function () {
             }
         })
     });
+
+    $("#checkout").click(function () {
+        alert("hii");
+
+        window.location = "http://localhost/StockMarket/frontend/payment.php";
+
+    });
 });
 

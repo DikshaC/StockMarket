@@ -170,7 +170,7 @@
 
     </table>
 
-    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>Checkout</button>
+    <button id="checkout" class="btn btn-lg btn-success" ><i class="glyphicon glyphicon-ok-sign"></i>Checkout</button>
 </div>
 
 
