@@ -567,6 +567,11 @@ a:hover {
   padding-right: 0;
 }
 
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #fff;
+  background-color: #2eca6a;
+}
+
 .navbar-default.navbar-trans .nav-link:before,
 .navbar-default.navbar-reduce .nav-link:before {
   content: '';

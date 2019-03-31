@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/index.js"></script>
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
 
 
     <meta charset="utf-8">
@@ -61,7 +57,7 @@
     $data_arr = $results->data;
 
     ?>
-
+    <script src="js/index.js"></script>
 
 
 </head>
@@ -161,7 +157,7 @@
 $j=0;
 while($j==0 || $j==3 && $j<6){
     ?>
-
+<div class = "section-t8 container">
     <div class="card-deck" style="padding: 5px">
         <?php
         for($i=$j;$i<$j+3&&$i<count($data_arr);$i++){
@@ -170,7 +166,7 @@ while($j==0 || $j==3 && $j<6){
                 <div>
                     <img style="width: 20%; float:left" class="card-img-top" src="..." alt="Card image cap">
 
-                    <h5 style="width: 80%; float:right" class="card-title"><?php echo $data_arr[$i]['name']; ?></h5> </div>
+                    <h5 id="<?php echo 'card'.$data_arr[$i]['id']; ?>_name" style="width: 80%; float:right" class="card-title"><?php echo $data_arr[$i]['name']; ?></h5> </div>
                 <div class="card text-center" style="margin: 0px;">
                     <div class="card-header">
                         <ul class="nav nav-pills card-header-tabs">
@@ -190,23 +186,35 @@ while($j==0 || $j==3 && $j<6){
                         <div class="tab-pane active" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_trade" >
                             <div class="card-body">
                                 <div>
-                                    <p  style="width: 50%; float:left" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_price">Price: <?php echo $data_arr[$i]['price']; ?></p>
+                                    <p  style="width: 50%; float:left" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_price">Price:<?php echo $data_arr[$i]['price']; ?></p>
                                     <?php if ($data_arr[$i]['difference'] >=0){ ?>
                                         <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up" class="fa fa-caret-up"  style="width:50%;float:right;color:green"></i>
                                     <?php } else { ?>
                                         <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down"  class="fa fa-caret-down" style="width:50%;float:right;color:red"></i>
                                     <?php } ?>
                                 </div>
-                                <form action="index.php" method="post">
+
+
+                                <div>
+                                    <div style="width: 40%;float:right">
+                                    <div class="form-check form-check-inline" >
+                                        <input class="form-check-input <?php echo 'card'.$data_arr[$i]['id']; ?>" type="radio" name="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_sell" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_button" value="b" checked>
+                                        <label class="form-check-label" for="inlineRadio1" >Buy</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input <?php echo 'card'.$data_arr[$i]['id']; ?>" type="radio" name="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_sell" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_sell_button" value="s">
+                                        <label class="form-check-label" for="inlineRadio2">Sell</label>
+                                    </div>
+                                    </div>
+
+                                    <div style="width:60%:float:left">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons" aria-label="Basic example">
-                                        <input id="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_button" type="radio" class="btn btn-secondary" style="background-color:red">Buy</input>
-                                        <input id="<?php echo 'card'.$data_arr[$i]['id']; ?>_sell_button" type="radio" class="btn btn-secondary" style="background-color:green">Sell</input>
 
                                         <div class="container">
                                             <div class="page-header"></div>
                                             <div class="input-group spinner" >
 
-                                                <input type="text" class="form-control" value="42" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_spin">
+                                                <input type="text" class="form-control" value="1" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_spin">
 
                                                 <div class="input-group-btn-vertical">
                                                     <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up_spinner" ><i class="fa fa-caret-up"></i></button>
@@ -215,11 +223,13 @@ while($j==0 || $j==3 && $j<6){
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                </div>
                                     <div style="padding-top: 5px">
-                                        <a id=<?php echo 'card'.$data_arr[$i]['id']; ?>_cart_button href="#" class="btn btn-primary">Add to cart</a>
-                                        <a id=<?php echo 'card'.$data_arr[$i]['id']; ?>_checkout_button href="#" class="btn btn-primary">Checkout</a>
+                                        <button type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_cart_button"  class="btn btn-success car" >Add to cart</button>
+                                        <button type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_checkout_button"  class="btn btn-success checkout">Checkout</button>
                                     </div>
-                                </form>
                             </div>
                         </div>
 
@@ -248,10 +258,11 @@ while($j==0 || $j==3 && $j<6){
 
                 </div>
             </div>
+
         <?php } $j=$j+3;?>
     </div>
 <?php } ?>
-
+</div>
 <?php
 echo $Paginator->createLinks( 'pagination' ); ?>
 <!--/ footer Star /-->
@@ -403,8 +414,7 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 <div id="preloader"></div>
 
 <!-- JavaScript Libraries -->
-<script src="lib/jquery/jquery.min.js"></script>
-<script src="lib/jquery/jquery-migrate.min.js"></script>
+
 <script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/easing/easing.min.js"></script>
@@ -412,9 +422,11 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 <script src="lib/scrollreveal/scrollreveal.min.js"></script>
 <!-- Contact Form JavaScript File -->
 <script src="contactform/contactform.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
+
 
 </body>
 </html>

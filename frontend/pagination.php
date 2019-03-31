@@ -89,11 +89,6 @@ class pagination
 
         $html       .= '</ul>';
 
-
         return $html;
     }
-
-
-
-
 }
