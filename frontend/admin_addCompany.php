@@ -1,16 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="css/style.css">
-
-
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -39,32 +29,74 @@
     <link href="css/style.css" rel="stylesheet">
 
     <?php
-    //require('index.php');
-    require('predict.php');
-    require_once 'Pagination.php';
     require('db_connection.php');
     global $connection;
-    $conn = $connection;
 
-    $limit      =  6;
-    $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
-    //$links      = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 3;
-    $query      = "SELECT * FROM Company";
+        if(isset($_POST['btn_submit'])){
+            $name = $_POST['company_name'];
+            $symbol = $_POST['symbol'];
+            $description = $_POST['description'];
 
-    $Paginator  = new pagination( $conn, $query );
+            $target_dir = "img/";
+            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// Check if image file is a actual image or fake image
 
-    $results    = $Paginator->getData( $limit,$page );
-    $data_arr = $results->data;
+            if(isset($_FILES['fileToUpload'])){
 
+                $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                if($check !== false) {
+                    echo "File is an image - " . $check["mime"] . ".";
+                    $uploadOk = 1;
+                } else {
+                    echo "File is not an image.";
+                    $uploadOk = 0;
+                }
+
+// Check if file already exists
+            if (file_exists($target_file)) {
+                echo "Sorry, file already exists.";
+                $uploadOk = 0;
+            }
+// Check file size
+            if ($_FILES["fileToUpload"]["size"] > 500000) {
+                echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+// Allow certain file formats
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "gif" ) {
+                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $uploadOk = 0;
+            }
+// Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+            }
+            else {
+                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                    echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                    $file_path = "img/".$_FILES["fileToUpload"]["name"];
+                    $query = "Insert into company(name,symbol,description,image) values('".$name."','".$symbol."','".$description."','".$file_path."')";
+                    $connection->query($query);
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+            }
+        }
+
+
+
+        }
     ?>
-    <script src="js/index.js"></script>
-
 
 </head>
 
 <body>
 <div class="click-closed"></div>
-<!--/ Form Search Star /-->
+/ Form Search Star /
 <div class="box-collapse">
     <div class="title-box-d">
         <h3 class="title-d">Search Stocks</h3>
@@ -108,7 +140,7 @@
             <span></span>
             <span></span>
         </button>
-        <a class="navbar-brand text-brand" href="index.php">
+        <a class="navbar-brand text-brand" href="index.html">
             <img src="img/bob.jpg" width="100" height="100"/>
             <span class="color-b">Bulls</span>
             <span class="color-a">Or</span>
@@ -120,7 +152,7 @@
         <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Home</a>
+                    <a class="nav-link active" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.html">About</a>
@@ -150,121 +182,49 @@
         </button>
     </div>
 </nav>
-<!--/ Nav End /-->
+/ Nav End /
 
-
-<?php
-$j=0;
-while($j==0 || $j==3 && $j<6){
-    ?>
-<div class = "section-t8 container">
-    <div class="card-deck" style="padding: 5px">
-        <?php
-        for($i=$j;$i<$j+3&&$i<count($data_arr);$i++){
-            ?>
-            <div class="card" id="<?php echo 'card'.$data_arr[$i]['id']; ?>" >
-                <div>
-                    <img src="<?php echo $data_arr[$i]['image']?>" style="width: 20%; float:left" class="card-img-top" src="..." alt="Card image cap">
-
-                    <h5 id="<?php echo 'card'.$data_arr[$i]['id']; ?>_name" style="width: 80%; float:right" class="card-title"><?php echo $data_arr[$i]['name']; ?></h5> </div>
-                <div class="card text-center" style="margin: 0px;">
-                    <div class="card-header">
-                        <ul class="nav nav-pills card-header-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_trade" data-toggle="tab" role="tab">Trade</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_details" data-toggle="tab" role="tab">Details</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction" data-toggle="tab" role="tab">Prediction</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <div class="tab-content clearfix">
-                        <div class="tab-pane active" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_trade" >
-                            <div class="card-body">
-                                <div>
-                                    <p  style="width: 50%; float:left" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_price">Price:<?php echo $data_arr[$i]['price']; ?></p>
-                                    <?php if ($data_arr[$i]['difference'] >=0){ ?>
-                                        <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up" class="fa fa-caret-up"  style="width:50%;float:right;color:green"></i>
-                                    <?php } else { ?>
-                                        <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down"  class="fa fa-caret-down" style="width:50%;float:right;color:red"></i>
-                                    <?php } ?>
-                                </div>
-
-
-                                <div>
-                                    <div style="width: 40%;float:right">
-                                    <div class="form-check form-check-inline" >
-                                        <input class="form-check-input <?php echo 'card'.$data_arr[$i]['id']; ?>" type="radio" name="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_sell" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_button" value="b" checked>
-                                        <label class="form-check-label" for="inlineRadio1" >Buy</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input <?php echo 'card'.$data_arr[$i]['id']; ?>" type="radio" name="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_sell" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_sell_button" value="s">
-                                        <label class="form-check-label" for="inlineRadio2">Sell</label>
-                                    </div>
-                                    </div>
-
-                                    <div style="width:60%:float:left">
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons" aria-label="Basic example">
-
-                                        <div class="container">
-                                            <div class="page-header"></div>
-                                            <div class="input-group spinner" >
-
-                                                <input type="text" class="form-control" value="1" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_spin">
-
-                                                <div class="input-group-btn-vertical">
-                                                    <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up_spinner" ><i class="fa fa-caret-up"></i></button>
-                                                    <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down_spinner"><i class="fa fa-caret-down"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                </div>
-                                    <div style="padding-top: 5px">
-                                        <button type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_cart_button"  class="btn btn-success car" >Add to cart</button>
-                                        <button type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_checkout_button"  class="btn btn-success checkout">Checkout</button>
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_details" >
-                            <p>
-                                Open: <?php echo $data_arr[$i]['open']; ?> <br>
-                                High: <?php echo $data_arr[$i]['high']; ?> <br>
-                                Low:  <?php echo $data_arr[$i]['low']; ?> <br>
-                                Last trade day: <?php echo $data_arr[$i]['last_trade_day']; ?> <br>
-                                Previous Close: <?php echo $data_arr[$i]['previous_close']; ?> <br>
-                            </p>
-
-                        </div>
-
-                        <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction">
-                            <p>
-                                <?php
-
-                                $stock = 'GOOGL';
-                                predict_for_closing_price($stock);
-                                ?>
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
+<div class="container section-t8">
+    <h3>Company Details</h3>
+    <form class="form" action="admin_addCompany.php" method="POST" id="registrationForm"  enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="company_name"><strong>Name</strong></label>
+                <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Company name">
             </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="symbol"><strong>Symbol</strong></label>
+                <input type="text" class="form-control" name="symbol" id="symbol" placeholder="FASDAQ Symbol">
+            </div>
+        </div>
 
-        <?php } $j=$j+3;?>
-    </div>
-<?php } ?>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="description"><strong>Description</strong></label>
+                <input type="text" class="form-control" name="description" id="description" placeholder="Description">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="fileToUpload"><strong>Image </strong></label>
+                <input type="file" name="fileToUpload" id="fileToUpload">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12">
+                <br>
+                <button class="btn btn-lg btn-success" name="btn_submit" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+            </div>
+        </div>
+    </form>
 </div>
-<?php
-echo $Paginator->createLinks( 'pagination' ); ?>
+
+
 <!--/ footer Star /-->
 <section class="section-footer">
     <div class="container">
@@ -414,7 +374,8 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 <div id="preloader"></div>
 
 <!-- JavaScript Libraries -->
-
+<script src="lib/jquery/jquery.min.js"></script>
+<script src="lib/jquery/jquery-migrate.min.js"></script>
 <script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/easing/easing.min.js"></script>
@@ -422,11 +383,9 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 <script src="lib/scrollreveal/scrollreveal.min.js"></script>
 <!-- Contact Form JavaScript File -->
 <script src="contactform/contactform.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
-
 
 </body>
 </html>
