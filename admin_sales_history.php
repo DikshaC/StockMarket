@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="css/style.css">
-
-
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -23,7 +14,11 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
     <!-- Bootstrap CSS File -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 
     <!-- Libraries CSS Files -->
@@ -36,29 +31,20 @@
 
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
-
     <?php
-    //require('index.php');
-    require('predict.php');
-    require_once 'Pagination.php';
-    require('db_connection.php');
-    global $connection;
-    $conn = $connection;
-
-    $limit      =  6;
-    $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
-    //$links      = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 3;
-    $query      = "SELECT * FROM Company";
-
-    $Paginator  = new pagination( $conn, $query );
-
-    $results    = $Paginator->getData( $limit,$page );
-    $data_arr = $results->data;
-
-    ?>
-    <script src="js/index.js"></script>
-
-
+//    require('db_connection.php');
+//    global $connection;
+//    $conn = $connection;
+//    $id = 1;
+//    $buy_query = "SELECT ut.id, c.name, td.price, td.quantity
+//              FROM user_transaction ut JOIN transaction_details td JOIN company c
+//              ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='b'";
+//    $buy_results = $conn->query($buy_query);
+//    $sell_query = "SELECT ut.id, c.name, td.price, td.quantity
+//              FROM user_transaction ut JOIN transaction_details td JOIN company c
+//              ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='s'";
+//    $sell_results = $conn->query($sell_query);
+?>
 </head>
 
 <body>
@@ -107,7 +93,7 @@
             <span></span>
             <span></span>
         </button>
-        <a class="navbar-brand text-brand" href="index.php">
+        <a class="navbar-brand text-brand" href="index.html">
             <img src="img/bob.jpg" width="100" height="100"/>
             <span class="color-b">Bulls</span>
             <span class="color-a">Or</span>
@@ -119,7 +105,7 @@
         <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Home</a>
+                    <a class="nav-link active" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.html">About</a>
@@ -151,119 +137,61 @@
 </nav>
 <!--/ Nav End /-->
 
+<div class="section-t8 container">
 
-<?php
-$j=0;
-while($j==0 || $j==3 && $j<6){
-    ?>
-<div class = "section-t8 container">
-    <div class="card-deck" style="padding: 5px">
-        <?php
-        for($i=$j;$i<$j+3&&$i<count($data_arr);$i++){
-            ?>
-            <div class="card" id="<?php echo 'card'.$data_arr[$i]['id']; ?>" >
-                <div>
-                    <img src="<?php echo $data_arr[$i]['image']?>" style="width: 20%; float:left" class="card-img-top" src="..." alt="Card image cap">
-
-                    <h5 id="<?php echo 'card'.$data_arr[$i]['id']; ?>_name" style="width: 80%; float:right" class="card-title"><?php echo $data_arr[$i]['name']; ?></h5> </div>
-                <div class="card text-center" style="margin: 0px;">
-                    <div class="card-header">
-                        <ul class="nav nav-pills card-header-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_trade" data-toggle="tab" role="tab">Trade</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_details" data-toggle="tab" role="tab">Details</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction" data-toggle="tab" role="tab">Prediction</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <div class="tab-content clearfix">
-                        <div class="tab-pane active" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_trade" >
-                            <div class="card-body">
-                                <div>
-                                    <p  style="width: 50%; float:left" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_price">Price:<?php echo $data_arr[$i]['price']; ?></p>
-                                    <?php if ($data_arr[$i]['difference'] >=0){ ?>
-                                        <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up" class="fa fa-caret-up"  style="width:50%;float:right;color:green"></i>
-                                    <?php } else { ?>
-                                        <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down"  class="fa fa-caret-down" style="width:50%;float:right;color:red"></i>
-                                    <?php } ?>
-                                </div>
-
-
-                                <div>
-                                    <div style="width: 40%;float:right">
-                                    <div class="form-check form-check-inline" >
-                                        <input class="form-check-input <?php echo 'card'.$data_arr[$i]['id']; ?>" type="radio" name="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_sell" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_button" value="b" checked>
-                                        <label class="form-check-label" for="inlineRadio1" >Buy</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input <?php echo 'card'.$data_arr[$i]['id']; ?>" type="radio" name="<?php echo 'card'.$data_arr[$i]['id']; ?>_buy_sell" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_sell_button" value="s">
-                                        <label class="form-check-label" for="inlineRadio2">Sell</label>
-                                    </div>
-                                    </div>
-
-                                    <div style="width:60%:float:left">
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons" aria-label="Basic example">
-
-                                        <div class="container">
-                                            <div class="page-header"></div>
-                                            <div class="input-group spinner" >
-
-                                                <input type="text" class="form-control" value="1" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_spin">
-
-                                                <div class="input-group-btn-vertical">
-                                                    <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up_spinner" ><i class="fa fa-caret-up"></i></button>
-                                                    <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down_spinner"><i class="fa fa-caret-down"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                </div>
-                                    <div style="padding-top: 5px">
-                                        <button type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_cart_button"  class="btn btn-success car" >Add to cart</button>
-                                        <button type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_checkout_button"  class="btn btn-success checkout">Checkout</button>
-                                    </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_details" >
-                            <p>
-                                Open: <?php echo $data_arr[$i]['open']; ?> <br>
-                                High: <?php echo $data_arr[$i]['high']; ?> <br>
-                                Low:  <?php echo $data_arr[$i]['low']; ?> <br>
-                                Last trade day: <?php echo $data_arr[$i]['last_trade_day']; ?> <br>
-                                Previous Close: <?php echo $data_arr[$i]['previous_close']; ?> <br>
-                            </p>
-
-                        </div>
-
-                        <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction">
-                            <p>
-                                <?php
-
-                                $stock = 'GOOGL';
-                                predict_for_closing_price($stock);
-                                ?>
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-        <?php } $j=$j+3;?>
+    <ul class="nav nav-tabs md-tabs" id="myTabMD" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#Bought" role="tab">Bought Stock</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#Sold" role="tab">Sold Stock</a>
+        </li>
+    </ul>
+    <div class="tab-content card pt-5" id="myTabContentMD">
+        <div class="tab-pane fade show active" id="Bought" role="tabpanel" aria-labelledby="home-tab-md">
+            <?php $i=0; while ($buy_result = $buy_results->fetch_assoc()) { $i=$i+1;?>
+                <table class="table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Transaction Id</th>
+                        <th>Company Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <tr>
+                        <td><?php echo $i?></td>
+                        <td><?php echo $buy_result['id']?></td>
+                        <td><?php echo $buy_result['name']?></td>
+                        <td><?php echo $buy_result['price']?></td>
+                        <td><?php echo $buy_result['quantity']?></td>
+                    </tr>
+                </table>
+            <?php } ?>
+        </div>
+        <div class="tab-pane fade" id="Sold" role="tabpanel" aria-labelledby="profile-tab-md">
+            <?php $i=0; while ($sell_result = $sell_results->fetch_assoc()) { $i=$i+1;?>
+                <table class="table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Transaction Id</th>
+                        <th>Company Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <tr>
+                        <td><?php echo $i?></td>
+                        <td><?php echo $sell_result['id']?></td>
+                        <td><?php echo $sell_result['name']?></td>
+                        <td><?php echo $sell_result['price']?></td>
+                        <td><?php echo $sell_result['quantity']?></td>
+                    </tr>
+                </table>
+            <?php } ?>
+        </div>
     </div>
-<?php } ?>
 </div>
-<?php
-echo $Paginator->createLinks( 'pagination' ); ?>
+
+
 <!--/ footer Star /-->
 <section class="section-footer">
     <div class="container">
@@ -275,7 +203,7 @@ echo $Paginator->createLinks( 'pagination' ); ?>
                     </div>
                     <div class="w-body-a">
                         <p class="w-text-a color-text-a">
-                            Leading financial services company and pioneer in the online stock sales industry. It’s the platform for traders passionate about the markets. Intuitive and easy-to-use. Packed with opportunity-finding and market-seizing tools and features.
+                            Leading financial services company and pioneer in the online stock sales industry. Itâ€™s the platform for traders passionate about the markets. Intuitive and easy-to-use. Packed with opportunity-finding and market-seizing tools and features.
                         </p>
                     </div>
                     <div class="w-footer-a">
@@ -413,7 +341,8 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 <div id="preloader"></div>
 
 <!-- JavaScript Libraries -->
-
+<script src="lib/jquery/jquery.min.js"></script>
+<script src="lib/jquery/jquery-migrate.min.js"></script>
 <script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/easing/easing.min.js"></script>
@@ -421,11 +350,9 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 <script src="lib/scrollreveal/scrollreveal.min.js"></script>
 <!-- Contact Form JavaScript File -->
 <script src="contactform/contactform.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
-
 
 </body>
 </html>
