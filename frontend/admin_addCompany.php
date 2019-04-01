@@ -3,9 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
 
     <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
@@ -16,21 +13,15 @@
     <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
     <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
 
     <?php
-    require('db_connection.php');
-    global $connection;
+        require('db_connection.php');
+        global $connection;
 
         if(isset($_POST['btn_submit'])){
             $name = $_POST['company_name'];
@@ -41,8 +32,8 @@
             $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
             $uploadOk = 1;
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
 
+            // Check if image file is a actual image or fake image
             if(isset($_FILES['fileToUpload'])){
 
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -54,41 +45,38 @@
                     $uploadOk = 0;
                 }
 
-// Check if file already exists
-            if (file_exists($target_file)) {
-                echo "Sorry, file already exists.";
-                $uploadOk = 0;
-            }
-// Check file size
-            if ($_FILES["fileToUpload"]["size"] > 500000) {
-                echo "Sorry, your file is too large.";
-                $uploadOk = 0;
-            }
-// Allow certain file formats
-            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                && $imageFileType != "gif" ) {
-                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                $uploadOk = 0;
-            }
-// Check if $uploadOk is set to 0 by an error
-            if ($uploadOk == 0) {
-                echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-            }
-            else {
-                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                    echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-                    $file_path = "img/".$_FILES["fileToUpload"]["name"];
-                    $query = "Insert into company(name,symbol,description,image) values('".$name."','".$symbol."','".$description."','".$file_path."')";
-                    $connection->query($query);
-                } else {
-                    echo "Sorry, there was an error uploading your file.";
+                // Check if file already exists
+                if (file_exists($target_file)) {
+                    echo "Sorry, file already exists.";
+                    $uploadOk = 0;
+                }
+                // Check file size
+                if ($_FILES["fileToUpload"]["size"] > 500000) {
+                    echo "Sorry, your file is too large.";
+                    $uploadOk = 0;
+                }
+                // Allow certain file formats
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                    && $imageFileType != "gif" ) {
+                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                    $uploadOk = 0;
+                }
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+                    echo "Sorry, your file was not uploaded.";
+                // if everything is ok, try to upload file
+                }
+                else {
+                    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                        $file_path = "img/".$_FILES["fileToUpload"]["name"];
+                        $query = "Insert into company(name,symbol,description,image) values('".$name."','".$symbol."','".$description."','".$file_path."')";
+                        $connection->query($query);
+                    } else {
+                        echo "Sorry, there was an error uploading your file.";
+                    }
                 }
             }
-        }
-
-
-
         }
     ?>
 
@@ -136,11 +124,8 @@
     <div class="container-fluid">
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
                 aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
         </button>
-        <a class="navbar-brand text-brand" href="index.html">
+        <a class="navbar-brand text-brand" href="index.php">
             <img src="img/bob.jpg" width="100" height="100"/>
             <span class="color-b">Bulls</span>
             <span class="color-a">Or</span>
@@ -152,13 +137,13 @@
         <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Home</a>
+                    <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link" href="about.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -166,13 +151,14 @@
                         <i class="fas fa-user-circle fa-2x"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="property-single.html">Transaction History</a>
-                        <a class="dropdown-item" href="blog-single.html">Account Settings</a>
-                        <a class="dropdown-item" href="agents-grid.html">LogOut</a>
+                        <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
+                        <a class="dropdown-item" href="userProfile.php">Account Settings</a>
+                        <a class="dropdown-item" href="userInventory.php">My Stocks</a>
+                        <a class="dropdown-item" href="login.html">LogOut</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="property-grid.html"><i class="fas fa-shopping-cart fa-2x"></i></a>
+                    <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
                 </li>
             </ul>
         </div>
@@ -376,13 +362,7 @@
 <!-- JavaScript Libraries -->
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/scrollreveal/scrollreveal.min.js"></script>
-<!-- Contact Form JavaScript File -->
-<script src="contactform/contactform.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>

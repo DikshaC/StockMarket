@@ -23,13 +23,13 @@
         global $connection;
         $conn = $connection;
         $id = 1;
-        $buy_query = "SELECT ut.id, c.name, td.price, td.quantity 
-                  FROM user_transaction ut JOIN transaction_details td JOIN company c
-                  ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='b'";
+        $buy_query = "SELECT company.name AS Name , COUNT(transaction_details.id) AS NumberOfTransactions, SUM(transaction_details.price) AS Price, SUM(transaction_details.quantity) AS Quantity 
+                FROM transaction_details JOIN company ON transaction_details.companyId = company.id
+                WHERE transaction_details.buy_sell='b' GROUP BY transaction_details.companyId";
         $buy_results = $conn->query($buy_query);
-        $sell_query = "SELECT ut.id, c.name, td.price, td.quantity 
-                  FROM user_transaction ut JOIN transaction_details td JOIN company c
-                  ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='s'";
+        $sell_query = "SELECT company.name AS Name , COUNT(transaction_details.id) AS NumberOfTransactions, SUM(transaction_details.price) AS Price, SUM(transaction_details.quantity) AS Quantity 
+                FROM transaction_details JOIN company ON transaction_details.companyId = company.id
+                WHERE transaction_details.buy_sell='s' GROUP BY transaction_details.companyId";
         $sell_results = $conn->query($sell_query);
     ?>
 </head>
@@ -133,44 +133,44 @@
     </ul>
     <div class="tab-content card pt-5" id="myTabContentMD">
         <div class="tab-pane fade show active" id="Bought" role="tabpanel" aria-labelledby="home-tab-md">
-            <table class="table">
-                <tr>
-                    <th>S.No</th>
-                    <th>Transaction Id</th>
-                    <th>Company Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                </tr>
-                <?php $i=0; while ($buy_result = $buy_results->fetch_assoc()) { $i=$i+1;?>
-                <tr>
-                    <td><?php echo $i?></td>
-                    <td><?php echo $buy_result['id']?></td>
-                    <td><?php echo $buy_result['name']?></td>
-                    <td><?php echo $buy_result['price']?></td>
-                    <td><?php echo $buy_result['quantity']?></td>
-                </tr>
-                <?php } ?>
-            </table>
+                <table class="table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Company Name</th>
+                        <th>Transactions</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <?php $i=0; while ($buy_result = $buy_results->fetch_assoc()) { $i=$i+1;?>
+                    <tr>
+                        <td><?php echo $i?></td>
+                        <td><?php echo $buy_result['Name']?></td>
+                        <td><?php echo $buy_result['NumberOfTransactions']?></td>
+                        <td><?php echo $buy_result['Price']?></td>
+                        <td><?php echo $buy_result['Quantity']?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
         </div>
         <div class="tab-pane fade" id="Sold" role="tabpanel" aria-labelledby="profile-tab-md">
-            <?php $i=0; while ($sell_result = $sell_results->fetch_assoc()) { $i=$i+1;?>
-            <table class="table">
-                <tr>
-                    <th>S.No</th>
-                    <th>Transaction Id</th>
-                    <th>Company Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                </tr>
-                <tr>
-                    <td><?php echo $i?></td>
-                    <td><?php echo $sell_result['id']?></td>
-                    <td><?php echo $sell_result['name']?></td>
-                    <td><?php echo $sell_result['price']?></td>
-                    <td><?php echo $sell_result['quantity']?></td>
-                </tr>
-            </table>
-            <?php } ?>
+                <table class="table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Company Name</th>
+                        <th>Transactions</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <?php $i=0; while ($sell_result = $sell_results->fetch_assoc()) { $i=$i+1;?>
+                    <tr>
+                        <td><?php echo $i?></td>
+                        <td><?php echo $sell_result['Name']?></td>
+                        <td><?php echo $sell_result['NumberOfTransactions']?></td>
+                        <td><?php echo $sell_result['Price']?></td>
+                        <td><?php echo $sell_result['Quantity']?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
         </div>
     </div>
 </div>

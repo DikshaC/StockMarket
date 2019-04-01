@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="css/style.css">
-
-
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
 
     <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
@@ -25,40 +13,27 @@
     <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
     <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
 
     <?php
-    //require('index.php');
-    require('predict.php');
-    require_once 'Pagination.php';
-    require('db_connection.php');
-    global $connection;
-    $conn = $connection;
+        require('predict.php');
+        require_once 'Pagination.php';
+        require('db_connection.php');
+        global $connection;
+        $conn = $connection;
 
-    $limit      =  6;
-    $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
-    //$links      = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 3;
-    $query      = "SELECT * FROM Company";
-
-    $Paginator  = new pagination( $conn, $query );
-
-    $results    = $Paginator->getData( $limit,$page );
-    $data_arr = $results->data;
-
+        $limit      =  6;
+        $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
+        $query      = "SELECT * FROM Company";
+        $Paginator  = new pagination( $conn, $query );
+        $results    = $Paginator->getData( $limit,$page );
+        $data_arr = $results->data;
     ?>
     <script src="js/index.js"></script>
-
-
 </head>
 
 <body>
@@ -103,9 +78,6 @@
     <div class="container-fluid">
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
                 aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
         </button>
         <a class="navbar-brand text-brand" href="index.php">
             <img src="img/bob.jpg" width="100" height="100"/>
@@ -122,10 +94,10 @@
                     <a class="nav-link active" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link" href="about.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -133,13 +105,14 @@
                         <i class="fas fa-user-circle fa-2x"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="property-single.html">Transaction History</a>
-                        <a class="dropdown-item" href="blog-single.html">Account Settings</a>
-                        <a class="dropdown-item" href="agents-grid.html">LogOut</a>
+                        <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
+                        <a class="dropdown-item" href="userProfile.php">Account Settings</a>
+                        <a class="dropdown-item" href="userInventory.php">My Stocks</a>
+                        <a class="dropdown-item" href="login.html">LogOut</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="property-grid.html"><i class="fas fa-shopping-cart fa-2x"></i></a>
+                    <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
                 </li>
             </ul>
         </div>
@@ -153,14 +126,14 @@
 
 
 <?php
-$j=0;
-while($j==0 || $j==3 && $j<6){
-    ?>
+    $j=0;
+    while($j==0 || $j==3 && $j<6){
+?>
 <div class = "section-t8 container">
     <div class="card-deck" style="padding: 5px">
         <?php
-        for($i=$j;$i<$j+3&&$i<count($data_arr);$i++){
-            ?>
+            for($i=$j;$i<$j+3&&$i<count($data_arr);$i++){
+        ?>
             <div class="card" id="<?php echo 'card'.$data_arr[$i]['id']; ?>" >
                 <div>
                     <img src="<?php echo $data_arr[$i]['image']?>" style="width: 20%; float:left" class="card-img-top" src="..." alt="Card image cap">
@@ -192,8 +165,6 @@ while($j==0 || $j==3 && $j<6){
                                         <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down"  class="fa fa-caret-down" style="width:50%;float:right;color:red"></i>
                                     <?php } ?>
                                 </div>
-
-
                                 <div>
                                     <div style="width: 40%;float:right">
                                     <div class="form-check form-check-inline" >
@@ -205,16 +176,12 @@ while($j==0 || $j==3 && $j<6){
                                         <label class="form-check-label" for="inlineRadio2">Sell</label>
                                     </div>
                                     </div>
-
                                     <div style="width:60%:float:left">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons" aria-label="Basic example">
-
                                         <div class="container">
                                             <div class="page-header"></div>
                                             <div class="input-group spinner" >
-
                                                 <input type="text" class="form-control" value="1" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_spin">
-
                                                 <div class="input-group-btn-vertical">
                                                     <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up_spinner" ><i class="fa fa-caret-up"></i></button>
                                                     <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down_spinner"><i class="fa fa-caret-down"></i></button>
@@ -223,7 +190,6 @@ while($j==0 || $j==3 && $j<6){
                                         </div>
                                     </div>
                                 </div>
-
                                 </div>
                                     <div style="padding-top: 5px">
                                         <button type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_cart_button"  class="btn btn-success car" >Add to cart</button>
@@ -231,7 +197,6 @@ while($j==0 || $j==3 && $j<6){
                                     </div>
                             </div>
                         </div>
-
                         <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_details" >
                             <p>
                                 Open: <?php echo $data_arr[$i]['open']; ?> <br>
@@ -242,7 +207,6 @@ while($j==0 || $j==3 && $j<6){
                             </p>
 
                         </div>
-
                         <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction">
                             <p>
                                 <?php
@@ -252,18 +216,16 @@ while($j==0 || $j==3 && $j<6){
                                 ?>
                             </p>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
         <?php } $j=$j+3;?>
     </div>
 <?php } ?>
 </div>
 <?php
 echo $Paginator->createLinks( 'pagination' ); ?>
+
 <!--/ footer Star /-->
 <section class="section-footer">
     <div class="container">
@@ -414,14 +376,9 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 
 <!-- JavaScript Libraries -->
 
-<script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/scrollreveal/scrollreveal.min.js"></script>
-<!-- Contact Form JavaScript File -->
-<script src="contactform/contactform.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>

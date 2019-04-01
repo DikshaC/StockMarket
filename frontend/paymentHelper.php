@@ -14,15 +14,6 @@ $userId = 1;
 if(isset($_POST['cc_submit'])|| isset($_POST['pp_submit'])){
     if(isset($_POST['id'])){
         $cart;
-        // Insert into user_transaction table
-//        $total_amount = 0;
-//        $buy_query = "SELECT SUM(total_price) AS buy_sum FROM cart WHERE userid={$userId} AND buy_sell='b' AND delete_flag=0 UNION
-//                              SELECT SUM(total_price) AS sell_sum FROM cart WHERE userid={$userId} AND buy_sell='s' AND delete_flag=0";
-//        $buy_results = $conn->query($buy_query);
-//        while ($buy_result = $buy_results->fetch_assoc()) {
-//            $total_amount = $buy_result['sell_sum'] - $buy_result['buy_sum'];
-//        }
-
 
         if (isset($_POST['cc_submit'])) {
             $payment_mode = 'Card';
@@ -46,7 +37,6 @@ if(isset($_POST['cc_submit'])|| isset($_POST['pp_submit'])){
         while ($ut_rows_result = $ut_rows_results->fetch_assoc()) {
             $ut_rows = $ut_rows_result['id'];
         }
-
 
             $td_query = "INSERT INTO transaction_details(transactionId, companyId, price, buy_sell, quantity, delete_flag) 
                         VALUES ({$ut_rows},{$_POST['id']},{$_POST['price']},'{$_POST['buy_sell']}',{$_POST['quantity']},0)";
@@ -77,7 +67,6 @@ if(isset($_POST['cc_submit'])|| isset($_POST['pp_submit'])){
                 }
 
             }
-
 
         // Remove items from cart table
         $cart_rm_query = "UPDATE cart SET delete_flag = 1 where cart.delete_flag=0 AND cart.userId=" . $userId;
@@ -171,7 +160,4 @@ if(isset($_POST['cc_submit'])|| isset($_POST['pp_submit'])){
         $conn->close();
     }
 }
-
-
-
 ?>

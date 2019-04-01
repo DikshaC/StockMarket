@@ -3,9 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
     <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
     <!-- Google Fonts -->
@@ -14,13 +11,8 @@
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
-
-
 </head>
 <body>
 <div class="click-closed"></div>
@@ -63,11 +55,8 @@
     <div class="container-fluid">
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
                 aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
         </button>
-        <a class="navbar-brand text-brand" href="index.html">
+        <a class="navbar-brand text-brand" href="index.php">
             <img src="img/bob.jpg" width="100" height="100"/>
             <span class="color-b">Bulls</span>
             <span class="color-a">Or</span>
@@ -79,13 +68,13 @@
         <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Home</a>
+                    <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link" href="about.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -93,13 +82,14 @@
                         <i class="fas fa-user-circle fa-2x"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="property-single.html">Transaction History</a>
-                        <a class="dropdown-item" href="blog-single.html">Account Settings</a>
-                        <a class="dropdown-item" href="agents-grid.html">LogOut</a>
+                        <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
+                        <a class="dropdown-item" href="userProfile.php">Account Settings</a>
+                        <a class="dropdown-item" href="userInventory.php">My Stocks</a>
+                        <a class="dropdown-item" href="login.html">LogOut</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="property-grid.html"><i class="fas fa-shopping-cart fa-2x"></i></a>
+                    <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
                 </li>
             </ul>
         </div>
@@ -169,16 +159,7 @@
                             </div>
                         </div>
                         <hr>
-
                         <?php
-                        //     var data = {
-                        //            id: $val,
-                        //            quantity : $quantity,
-                        //            buy_sell : $buy_sell,
-                        //            price: $total_price,
-                        //            userId: $userId
-                        //        };
-
                             if(isset($_POST['id'])){
                                 ?>
                                 <input type='hidden' name='id' value='<?php echo $_POST['id']; ?>'/>
@@ -189,9 +170,7 @@
                         <?php
                             }
                         ?>
-
                         <input type='hidden' name='var' value='<?php echo "$var";?>'/>
-
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <button type="reset" class="btn btn-default btn-lg btn-block">Cancel</button>
@@ -219,16 +198,8 @@
                             <input type="password" class="form-control" required="">
                         </div>
                         <hr>
-
                         <?php
-                        //     var data = {
-                        //            id: $val,
-                        //            quantity : $quantity,
-                        //            buy_sell : $buy_sell,
-                        //            price: $total_price,
-                        //            userId: $userId
-                        //        };
-                        if(isset($_POST['id'])){
+                            if(isset($_POST['id'])){
                         ?>
                         <input type='hidden' name='id' value='<?php echo $_POST['id']; ?>'/>
                         <input type='hidden' name='quantity' value='<?php echo $_POST['quantity']; ?>'/>
@@ -238,7 +209,6 @@
                         <?php
                             }
                         ?>
-
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <button type="reset" class="btn btn-default btn-lg btn-block">Cancel</button>
@@ -404,13 +374,7 @@
 <!-- JavaScript Libraries -->
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/scrollreveal/scrollreveal.min.js"></script>
-<!-- Contact Form JavaScript File -->
-<script src="contactform/contactform.js"></script>
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
 </body>
