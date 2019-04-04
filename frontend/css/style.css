@@ -989,7 +989,6 @@ a:hover {
 /*======================================
 //--//-->   CARD GENERAL
 ======================================*/
-
 .card-box-a,
 .card-box-b,
 .card-box-d {
@@ -997,6 +996,8 @@ a:hover {
   overflow: hidden;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  width: 20%;
+  height: 20%;
 }
 
 .card-box-a .img-a,
@@ -2090,6 +2091,15 @@ footer .credits {
   text-align: left;
   background-color: #4CAF50;
   color: white;
+}
+
+.page-item.active .page-link {
+  background-color: #4CAF50 !important;
+  border-color: #4CAF50 !important;
+}
+
+.page-link{
+  color: #4CAF50;
 }
 
 

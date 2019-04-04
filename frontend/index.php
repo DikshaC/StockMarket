@@ -13,9 +13,13 @@
     <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Libraries CSS Files -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
+
+    <!-- Libraries CSS Files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
 
@@ -72,7 +76,27 @@
     </div>
 </div>
 <!--/ Form Search End /-->
+<!--/ Modal Start /-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--/ Modal End /-->
 <!--/ Nav Star /-->
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container-fluid">
@@ -125,21 +149,21 @@
 <!--/ Nav End /-->
 
 
-<?php
+<div class = "section-t8 container">
+    <?php
     $j=0;
     while($j==0 || $j==3 && $j<6){
-?>
-<div class = "section-t8 container">
-    <div class="card-deck" style="padding: 5px">
+        ?>
+    <div class="card-deck">
         <?php
             for($i=$j;$i<$j+3&&$i<count($data_arr);$i++){
         ?>
-            <div class="card" id="<?php echo 'card'.$data_arr[$i]['id']; ?>" >
-                <div>
+            <div class="card col-xs-12 col-sm-6 col-md-4" style="margin: 8px; padding-right: 0px; padding-left: 0px" id="<?php echo 'card'.$j.$data_arr[$i]['id']; ?>" >
+                <div style="padding-top: 2px">
                     <img src="<?php echo $data_arr[$i]['image']?>" style="width: 20%; float:left" class="card-img-top" src="..." alt="Card image cap">
-
-                    <h5 id="<?php echo 'card'.$data_arr[$i]['id']; ?>_name" style="width: 80%; float:right" class="card-title"><?php echo $data_arr[$i]['name']; ?></h5> </div>
-                <div class="card text-center" style="margin: 0px;">
+                    <h5 id="<?php echo 'card'.$data_arr[$i]['id']; ?>_name" style="width: 60%; float:right" class="card-title"><?php echo $data_arr[$i]['name']; ?></h5>
+                </div>
+                <div class="card text-center" style="margin-left: 0px; margin-right: 0px" >
                     <div class="card-header">
                         <ul class="nav nav-pills card-header-tabs">
                             <li class="nav-item">
@@ -152,17 +176,16 @@
                                 <a class="nav-link" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction" data-toggle="tab" role="tab">Prediction</a>
                             </li>
                         </ul>
-
                     </div>
                     <div class="tab-content clearfix">
                         <div class="tab-pane active" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_trade" >
                             <div class="card-body">
                                 <div>
-                                    <p  style="width: 50%; float:left" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_price">Price:<?php echo $data_arr[$i]['price']; ?></p>
+                                    <p style="width: 50%; float:left" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_price">Price:<?php echo $data_arr[$i]['price']; ?></p>
                                     <?php if ($data_arr[$i]['difference'] >=0){ ?>
-                                        <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up" class="fa fa-caret-up"  style="width:50%;float:right;color:green"></i>
+                                        <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up" class="fa fa-caret-up fa-2x"  style="width:50%;float:right;color:green"></i>
                                     <?php } else { ?>
-                                        <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down"  class="fa fa-caret-down" style="width:50%;float:right;color:red"></i>
+                                        <i  id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down"  class="fa fa-caret-down fa-2x  " style="width:50%;float:right;color:red"></i>
                                     <?php } ?>
                                 </div>
                                 <div>
@@ -210,7 +233,6 @@
                         <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction">
                             <p>
                                 <?php
-
                                 $stock = 'GOOGL';
                                 predict_for_closing_price($stock);
                                 ?>
@@ -237,7 +259,7 @@ echo $Paginator->createLinks( 'pagination' ); ?>
                     </div>
                     <div class="w-body-a">
                         <p class="w-text-a color-text-a">
-                            Leading financial services company and pioneer in the online stock sales industry. It’s the platform for traders passionate about the markets. Intuitive and easy-to-use. Packed with opportunity-finding and market-seizing tools and features.
+                            Leading financial services company and pioneer in the online stock sales industry. Itâ€™s the platform for traders passionate about the markets. Intuitive and easy-to-use. Packed with opportunity-finding and market-seizing tools and features.
                         </p>
                     </div>
                     <div class="w-footer-a">

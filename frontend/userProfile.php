@@ -78,6 +78,9 @@
     <div class="container-fluid">
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
                 aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
         <a class="navbar-brand text-brand" href="index.php">
             <img src="img/bob.jpg" width="100" height="100"/>
@@ -132,44 +135,44 @@
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="first_name"><strong>First Name</strong></label>
-                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" value="<?php echo $result['NAME']; ?>">
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" value="<?php echo $result['NAME']; ?>" required>
 
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="last_name"><strong>Last Name</strong></label>
-                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" value="<?php echo $result['NAME']; ?>">
+                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" value="<?php echo $result['NAME']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="gender"><strong>Gender</strong></label>
-                    <input type="text" class="form-control" name="gender" id="gender" placeholder="gender" value="<?php echo $result['gender']; ?>">
+                    <input type="text" class="form-control" name="gender" id="gender" placeholder="gender" value="<?php echo $result['gender']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="phone"><strong>Phone</strong></label>
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" value="<?php echo $result['phone']; ?>">
+                    <input type="tel" class="form-control" name="phone" id="phone" placeholder="enter phone" value="<?php echo $result['phone']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="email"><strong>Email</strong></label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" value="<?php echo $result['email']; ?>">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" value="<?php echo $result['email']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="username"><strong>Username</strong></label>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="username" value="<?php echo $result['username']; ?>">
+                    <input type="text" class="form-control" name="username" id="username" placeholder="username" value="<?php echo $result['username']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="password"><strong>Password</strong></label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="password" value="<?php echo $result['pass']; ?>">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password" value="<?php echo $result['pass']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
@@ -337,6 +340,12 @@
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/jquery/jquery-migrate.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="lib/popper/popper.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/scrollreveal/scrollreveal.min.js"></script>
+<!-- Contact Form JavaScript File -->
+<script src="contactform/contactform.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
