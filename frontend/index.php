@@ -167,13 +167,13 @@
                     <div class="card-header">
                         <ul class="nav nav-pills card-header-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_trade" data-toggle="tab" role="tab">Trade</a>
+                                <a class="nav-link active" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_tradenav" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_trade" data-toggle="tab" role="tab">Trade</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_details" data-toggle="tab" role="tab">Details</a>
+                                <a class="nav-link" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_detailsnav" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_details" data-toggle="tab" role="tab">Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction" data-toggle="tab" role="tab">Prediction</a>
+                                <a class="nav-link" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_predictionnav" href="#<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction" data-toggle="tab" role="tab">Prediction</a>
                             </li>
                         </ul>
                     </div>
