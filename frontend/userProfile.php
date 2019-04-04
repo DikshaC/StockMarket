@@ -127,8 +127,7 @@
 </nav>
 <!--/ Nav End /-->
 
-<div class="col-md-12 section-t8">
-    <div class="container">
+<div class="container section-t8">
         <?php while ($result = $results->fetch_assoc()) { ?>
         <h3>Profile</h3>
         <form class="form" action="userProfile.php" method="post" id="userProfileForm">
@@ -184,7 +183,6 @@
             </div>
         </form>
         <?php } ?>
-    </div>
 </div>
 
 

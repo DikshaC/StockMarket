@@ -123,6 +123,7 @@
 <!--/ Nav End /-->
 
 <div class="section-t8 container">
+    <h3>Transaction History</h3>
     <ul class="nav nav-tabs md-tabs" id="myTabMD" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#Bought" role="tab">Bought Stock</a>

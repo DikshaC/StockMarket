@@ -121,8 +121,6 @@ $(document).ready(function () {
                     document.body.appendChild(mapForm);
 
                     mapForm.submit();
-                    alert("Please put your payment information");
-
                 }
 
                 else{
