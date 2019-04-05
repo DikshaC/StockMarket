@@ -3,17 +3,37 @@
 <head>
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
+
     <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
     <!-- Bootstrap CSS File -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
+    <?php
+        require('db_connection.php');
+        global $connection;
+        $conn = $connection;
+        $id = 1;
+        $buy_query = "SELECT company.name AS Name , COUNT(transaction_details.id) AS NumberOfTransactions, SUM(transaction_details.price) AS Price, SUM(transaction_details.quantity) AS Quantity 
+                FROM transaction_details JOIN company ON transaction_details.companyId = company.id
+                WHERE transaction_details.buy_sell='b' GROUP BY transaction_details.companyId";
+        $buy_results = $conn->query($buy_query);
+        $sell_query = "SELECT company.name AS Name , COUNT(transaction_details.id) AS NumberOfTransactions, SUM(transaction_details.price) AS Price, SUM(transaction_details.quantity) AS Quantity 
+                FROM transaction_details JOIN company ON transaction_details.companyId = company.id
+                WHERE transaction_details.buy_sell='s' GROUP BY transaction_details.companyId";
+        $sell_results = $conn->query($sell_query);
+    ?>
 </head>
+
 <body>
 <div class="click-closed"></div>
 <!--/ Form Search Star /-->
@@ -50,6 +70,7 @@
     </div>
 </div>
 <!--/ Form Search End /-->
+
 <!--/ Nav Star /-->
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container-fluid">
@@ -100,129 +121,61 @@
     </div>
 </nav>
 <!--/ Nav End /-->
+
 <div class="section-t8 container">
     <ul class="nav nav-tabs md-tabs" id="myTabMD" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#Credit" role="tab">Credit Card</a>
+            <a class="nav-link active" data-toggle="tab" href="#Bought" role="tab">Bought Stock</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#PayPal" role="tab">Paypal</a>
+            <a class="nav-link" data-toggle="tab" href="#Sold" role="tab">Sold Stock</a>
         </li>
     </ul>
-    <div class="tab-content card pt-5">
-        <div class="tab-pane fade show active col-md-4" style=" margin: auto; padding-bottom: 10px; padding-top: 10px;" id="Credit" role="tabpanel">
-            <div class="card card-outline-secondary">
-                <div class="card-body">
-                    <h3 class="text-center">Credit Card Payment</h3>
-                    <hr>
-                    <form class="form" role="form" action="paymentHelper.php" method="post">
-                        <div class="form-group">
-                            <label for="cc_name">Card Holder's Name</label>
-                            <input type="text" class="form-control" id="cc_name" pattern="\w+ \w+.*" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Card Number</label>
-                            <input type="text" class="form-control" maxlength="20" pattern="\d{16}" required="">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-12">Card Exp. Date</label>
-                            <div class="col-md-4">
-                                <select class="form-control" name="cc_exp_mo" size="0">
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                            </div>
-                            <div class="col-md-5">
-                                <select class="form-control" name="cc_exp_yr" size="0">
-                                    <option>2018</option>
-                                    <option>2019</option>
-                                    <option>2020</option>
-                                    <option>2021</option>
-                                    <option>2022</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-4">CVC</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" autocomplete="off" maxlength="3" pattern="\d{3}" title="Three digits at back of your card" required="" placeholder="CVC">
-                            </div>
-                        </div>
-                        <hr>
-                        <?php
-                            if(isset($_POST['id'])){
-                                ?>
-                                <input type='hidden' name='id' value='<?php echo $_POST['id']; ?>'/>
-                                <input type='hidden' name='quantity' value='<?php echo $_POST['quantity']; ?>'/>
-                                <input type='hidden' name='buy_sell' value='<?php echo $_POST['buy_sell']; ?>'/>
-                                <input type='hidden' name='price' value='<?php echo $_POST['price']; ?>'/>
-                                <input type='hidden' name='userId' value='<?php echo $_POST['userId']; ?>'/>
-                        <?php
-                            }
-                        ?>
-                        <input type='hidden' name='var' value='<?php echo "$var";?>'/>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <button type="reset" class="btn btn-default btn-lg btn-block">Cancel</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" name="cc_submit" class="btn btn-success btn-lg btn-block">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="tab-content card pt-5" id="myTabContentMD">
+        <div class="tab-pane fade show active" id="Bought" role="tabpanel" aria-labelledby="home-tab-md">
+                <table class="table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Company Name</th>
+                        <th>Transactions</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <?php $i=0; while ($buy_result = $buy_results->fetch_assoc()) { $i=$i+1;?>
+                    <tr>
+                        <td><?php echo $i?></td>
+                        <td><?php echo $buy_result['Name']?></td>
+                        <td><?php echo $buy_result['NumberOfTransactions']?></td>
+                        <td><?php echo $buy_result['Price']?></td>
+                        <td><?php echo $buy_result['Quantity']?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
         </div>
-        <div class="tab-pane fade" id="PayPal" role="tabpanel" style=" margin: auto; padding-bottom: 10px; padding-top: 10px;">
-            <div class="card card-outline-secondary">
-                <div class="card-body">
-                    <h3 class="text-center">PayPal Payment</h3>
-                    <hr>
-                    <form class="form" role="form" action="paymentHelper.php" method="post">
-                        <div class="form-group">
-                            <label for="cc_name">Email</label>
-                            <input type="email" class="form-control" id="email" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" required="">
-                        </div>
-                        <hr>
-                        <?php
-                            if(isset($_POST['id'])){
-                        ?>
-                        <input type='hidden' name='id' value='<?php echo $_POST['id']; ?>'/>
-                        <input type='hidden' name='quantity' value='<?php echo $_POST['quantity']; ?>'/>
-                        <input type='hidden' name='buy_sell' value='<?php echo $_POST['buy_sell']; ?>'/>
-                        <input type='hidden' name='price' value='<?php echo $_POST['price']; ?>'/>
-                        <input type='hidden' name='userId' value='<?php echo $_POST['userId']; ?>'/>
-                        <?php
-                            }
-                        ?>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <button type="reset" class="btn btn-default btn-lg btn-block">Cancel</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" name="pp_submit" class="btn btn-success btn-lg btn-block">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="tab-pane fade" id="Sold" role="tabpanel" aria-labelledby="profile-tab-md">
+                <table class="table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Company Name</th>
+                        <th>Transactions</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <?php $i=0; while ($sell_result = $sell_results->fetch_assoc()) { $i=$i+1;?>
+                    <tr>
+                        <td><?php echo $i?></td>
+                        <td><?php echo $sell_result['Name']?></td>
+                        <td><?php echo $sell_result['NumberOfTransactions']?></td>
+                        <td><?php echo $sell_result['Price']?></td>
+                        <td><?php echo $sell_result['Quantity']?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
         </div>
     </div>
 </div>
+
+
 <!--/ footer Star /-->
 <section class="section-footer">
     <div class="container">
@@ -240,11 +193,9 @@
                     <div class="w-footer-a">
                         <ul class="list-unstyled">
                             <li class="color-a">
-                                <span class="color-text-a">Phone </span> +1 (123)456-7890
-                            </li>
+                                <span class="color-text-a">Phone </span> +1 (123)456-7890 </li>
                             <li class="color-a">
-                                <span class="color-text-a">Email </span> bobinvestors@gmail.com
-                            </li>
+                                <span class="color-text-a">Email </span> bobinvestors@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -369,13 +320,17 @@
     </div>
 </footer>
 <!--/ Footer End /-->
+
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 <div id="preloader"></div>
+
 <!-- JavaScript Libraries -->
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/jquery/jquery-migrate.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
+
 </body>
 </html>

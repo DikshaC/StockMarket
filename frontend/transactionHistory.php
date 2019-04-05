@@ -3,9 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
 
     <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
@@ -14,36 +11,26 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
     <!-- Bootstrap CSS File -->
-    <!-- <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
     <?php
-    require('db_connection.php');
-    global $connection;
-    $conn = $connection;
-    $id = 1;
-    $buy_query = "SELECT ut.id, c.name, td.price, td.quantity 
-              FROM user_transaction ut JOIN transaction_details td JOIN company c
-              ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='b'";
-    $buy_results = $conn->query($buy_query);
-    $sell_query = "SELECT ut.id, c.name, td.price, td.quantity 
-              FROM user_transaction ut JOIN transaction_details td JOIN company c
-              ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='s'";
-    $sell_results = $conn->query($sell_query);
+        require('db_connection.php');
+        global $connection;
+        $conn = $connection;
+        $id = 1;
+        $buy_query = "SELECT ut.id, c.name, td.price, td.quantity 
+                  FROM user_transaction ut JOIN transaction_details td JOIN company c
+                  ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='b'";
+        $buy_results = $conn->query($buy_query);
+        $sell_query = "SELECT ut.id, c.name, td.price, td.quantity 
+                  FROM user_transaction ut JOIN transaction_details td JOIN company c
+                  ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='s'";
+        $sell_results = $conn->query($sell_query);
     ?>
 </head>
 
@@ -89,11 +76,8 @@
     <div class="container-fluid">
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
                 aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
         </button>
-        <a class="navbar-brand text-brand" href="index.html">
+        <a class="navbar-brand text-brand" href="index.php">
             <img src="img/bob.jpg" width="100" height="100"/>
             <span class="color-b">Bulls</span>
             <span class="color-a">Or</span>
@@ -105,13 +89,13 @@
         <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Home</a>
+                    <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link" href="about.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -119,13 +103,14 @@
                         <i class="fas fa-user-circle fa-2x"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="property-single.html">Transaction History</a>
-                        <a class="dropdown-item" href="blog-single.html">Account Settings</a>
-                        <a class="dropdown-item" href="agents-grid.html">LogOut</a>
+                        <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
+                        <a class="dropdown-item" href="userProfile.php">Account Settings</a>
+                        <a class="dropdown-item" href="userInventory.php">My Stocks</a>
+                        <a class="dropdown-item" href="login.html">LogOut</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="property-grid.html"><i class="fas fa-shopping-cart fa-2x"></i></a>
+                    <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
                 </li>
             </ul>
         </div>
@@ -138,7 +123,7 @@
 <!--/ Nav End /-->
 
 <div class="section-t8 container">
-
+    <h3>Transaction History</h3>
     <ul class="nav nav-tabs md-tabs" id="myTabMD" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#Bought" role="tab">Bought Stock</a>
@@ -149,7 +134,6 @@
     </ul>
     <div class="tab-content card pt-5" id="myTabContentMD">
         <div class="tab-pane fade show active" id="Bought" role="tabpanel" aria-labelledby="home-tab-md">
-            <?php $i=0; while ($buy_result = $buy_results->fetch_assoc()) { $i=$i+1;?>
             <table class="table">
                 <tr>
                     <th>S.No</th>
@@ -158,6 +142,7 @@
                     <th>Price</th>
                     <th>Quantity</th>
                 </tr>
+                <?php $i=0; while ($buy_result = $buy_results->fetch_assoc()) { $i=$i+1;?>
                 <tr>
                     <td><?php echo $i?></td>
                     <td><?php echo $buy_result['id']?></td>
@@ -165,8 +150,8 @@
                     <td><?php echo $buy_result['price']?></td>
                     <td><?php echo $buy_result['quantity']?></td>
                 </tr>
+                <?php } ?>
             </table>
-            <?php } ?>
         </div>
         <div class="tab-pane fade" id="Sold" role="tabpanel" aria-labelledby="profile-tab-md">
             <?php $i=0; while ($sell_result = $sell_results->fetch_assoc()) { $i=$i+1;?>
@@ -343,13 +328,7 @@
 <!-- JavaScript Libraries -->
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/scrollreveal/scrollreveal.min.js"></script>
-<!-- Contact Form JavaScript File -->
-<script src="contactform/contactform.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>

@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     $(".fa-trash").click(function (event) {
-        alert(event.target.id)
         var data = {
           number: event.target.id
         };
@@ -18,8 +17,6 @@ $(document).ready(function () {
     });
 
     $("#checkout").click(function () {
-        alert("hii");
-
         window.location = "http://localhost/StockMarket/frontend/payment.php";
 
     });

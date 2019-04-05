@@ -127,6 +127,7 @@ $(document).ready(function () {
 
                 else{
                     alert("You don't have enough stocks to sell for this company");
+                    $('#myModal').modal();
                 }
             }
         });
@@ -138,12 +139,32 @@ $(document).ready(function () {
             $up_id = $(this).attr('id');
             $up_id = $up_id.replace('_up_spinner', '');
             $('#'+$up_id+'_spin').val( parseInt($('#'+$up_id+'_spin').val()) + 1);
-        });
-
+    });
     $("[id$='down_spinner']").on('click', function() {
-        $down_id = $(this).attr('id');
-        $down_id = $down_id.replace('_down_spinner', '');
-        $('#'+$down_id+'_spin').val( parseInt($('#'+$down_id+'_spin').val()) - 1);
+       $down_id = $(this).attr('id');
+       $down_id = $down_id.replace('_down_spinner', '');
+       $('#'+$down_id+'_spin').val( parseInt($('#'+$down_id+'_spin').val()) - 1);
+    });
+    $("[id$='_tradenav']").on('click', function() {
+        $trade_id = $(this).attr('id');
+        $('#'+$trade_id).addClass("active");
+        $trade_id = $trade_id.replace('_tradenav', '');
+        $('#'+$trade_id+'_detailsnav').removeClass("active");
+        $('#'+$trade_id+'_predictionnav').removeClass("active");
+    });
+    $("[id$='_detailsnav']").on('click', function() {
+        $details_id = $(this).attr('id');
+        $('#'+$details_id).addClass("active");
+        $details_id = $details_id.replace('_detailsnav', '');
+        $('#'+$details_id+'_tradenav').removeClass("active");
+        $('#'+$details_id+'_predictionnav').removeClass("active");
+    });
+    $("[id$='_predictionnav']").on('click', function() {
+        $prediction_id = $(this).attr('id');
+        $('#'+$prediction_id).addClass("active");
+        $prediction_id = $prediction_id.replace('_predictionnav', '');
+        $('#'+$prediction_id+'_tradenav').removeClass("active");
+        $('#'+$prediction_id+'_detailsnav').removeClass("active");
     });
 
     $("#refresh_button").click(function () {
@@ -156,7 +177,6 @@ $(document).ready(function () {
             }
         });
     });
-
 
 });
 

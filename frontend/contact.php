@@ -3,17 +3,24 @@
 <head>
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
+
     <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
     <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
     <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
 </head>
+
 <body>
 <div class="click-closed"></div>
 <!--/ Form Search Star /-->
@@ -50,11 +57,15 @@
     </div>
 </div>
 <!--/ Form Search End /-->
+
 <!--/ Nav Star /-->
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container-fluid">
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
                 aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
         <a class="navbar-brand text-brand" href="index.php">
             <img src="img/bob.jpg" width="100" height="100"/>
@@ -74,7 +85,7 @@
                     <a class="nav-link" href="about.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.php">Contact</a>
+                    <a class="nav-link active" href="contact.php">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -100,129 +111,164 @@
     </div>
 </nav>
 <!--/ Nav End /-->
-<div class="section-t8 container">
-    <ul class="nav nav-tabs md-tabs" id="myTabMD" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#Credit" role="tab">Credit Card</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#PayPal" role="tab">Paypal</a>
-        </li>
-    </ul>
-    <div class="tab-content card pt-5">
-        <div class="tab-pane fade show active col-md-4" style=" margin: auto; padding-bottom: 10px; padding-top: 10px;" id="Credit" role="tabpanel">
-            <div class="card card-outline-secondary">
-                <div class="card-body">
-                    <h3 class="text-center">Credit Card Payment</h3>
-                    <hr>
-                    <form class="form" role="form" action="paymentHelper.php" method="post">
-                        <div class="form-group">
-                            <label for="cc_name">Card Holder's Name</label>
-                            <input type="text" class="form-control" id="cc_name" pattern="\w+ \w+.*" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Card Number</label>
-                            <input type="text" class="form-control" maxlength="20" pattern="\d{16}" required="">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-12">Card Exp. Date</label>
-                            <div class="col-md-4">
-                                <select class="form-control" name="cc_exp_mo" size="0">
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                            </div>
-                            <div class="col-md-5">
-                                <select class="form-control" name="cc_exp_yr" size="0">
-                                    <option>2018</option>
-                                    <option>2019</option>
-                                    <option>2020</option>
-                                    <option>2021</option>
-                                    <option>2022</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-4">CVC</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" autocomplete="off" maxlength="3" pattern="\d{3}" title="Three digits at back of your card" required="" placeholder="CVC">
-                            </div>
-                        </div>
-                        <hr>
-                        <?php
-                            if(isset($_POST['id'])){
-                                ?>
-                                <input type='hidden' name='id' value='<?php echo $_POST['id']; ?>'/>
-                                <input type='hidden' name='quantity' value='<?php echo $_POST['quantity']; ?>'/>
-                                <input type='hidden' name='buy_sell' value='<?php echo $_POST['buy_sell']; ?>'/>
-                                <input type='hidden' name='price' value='<?php echo $_POST['price']; ?>'/>
-                                <input type='hidden' name='userId' value='<?php echo $_POST['userId']; ?>'/>
-                        <?php
-                            }
-                        ?>
-                        <input type='hidden' name='var' value='<?php echo "$var";?>'/>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <button type="reset" class="btn btn-default btn-lg btn-block">Cancel</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" name="cc_submit" class="btn btn-success btn-lg btn-block">Submit</button>
-                            </div>
-                        </div>
-                    </form>
+
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">Contact US</h1>
                 </div>
             </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Contact
+                        </li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-        <div class="tab-pane fade" id="PayPal" role="tabpanel" style=" margin: auto; padding-bottom: 10px; padding-top: 10px;">
-            <div class="card card-outline-secondary">
-                <div class="card-body">
-                    <h3 class="text-center">PayPal Payment</h3>
-                    <hr>
-                    <form class="form" role="form" action="paymentHelper.php" method="post">
-                        <div class="form-group">
-                            <label for="cc_name">Email</label>
-                            <input type="email" class="form-control" id="email" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" required="">
-                        </div>
-                        <hr>
-                        <?php
-                            if(isset($_POST['id'])){
-                        ?>
-                        <input type='hidden' name='id' value='<?php echo $_POST['id']; ?>'/>
-                        <input type='hidden' name='quantity' value='<?php echo $_POST['quantity']; ?>'/>
-                        <input type='hidden' name='buy_sell' value='<?php echo $_POST['buy_sell']; ?>'/>
-                        <input type='hidden' name='price' value='<?php echo $_POST['price']; ?>'/>
-                        <input type='hidden' name='userId' value='<?php echo $_POST['userId']; ?>'/>
-                        <?php
-                            }
-                        ?>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <button type="reset" class="btn btn-default btn-lg btn-block">Cancel</button>
+    </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ Contact Star /-->
+<section class="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="contact-map box">
+                    <div id="map" class="contact-map">
+                        <iframe src="https://maps.google.com/maps?q=erik%20john&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                                width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 section-t8">
+                <div class="row">
+                    <div class="col-md-7">
+                        <form class="form-a contactForm" action="" method="post" role="form">
+                            <div id="sendmessage">Your message has been sent. Thank you!</div>
+                            <div id="errormessage"></div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <input type="text" name="name" class="form-control form-control-lg form-control-a" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <input name="email" type="email" class="form-control form-control-lg form-control-a" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <input type="url" name="subject" class="form-control form-control-lg form-control-a" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <textarea name="message" class="form-control" name="message" cols="45" rows="8" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-a">Send Message</button>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <button type="submit" name="pp_submit" class="btn btn-success btn-lg btn-block">Submit</button>
+                        </form>
+                    </div>
+                    <div class="col-md-5 section-md-t3">
+                        <div class="icon-box section-b2">
+                            <div class="icon-box-icon">
+                                <span class="ion-ios-paper-plane"></span>
+                            </div>
+                            <div class="icon-box-content table-cell">
+                                <div class="icon-box-title">
+                                    <h4 class="icon-title">Say Hello</h4>
+                                </div>
+                                <div class="icon-box-content">
+                                    <p class="mb-1">Email.
+                                        <span class="color-a">bobinvestors@gmail.com</span>
+                                    </p>
+                                    <p class="mb-1">Phone.
+                                        <span class="color-a"> +1 (123)456-7890</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </form>
+                        <div class="icon-box section-b2">
+                            <div class="icon-box-icon">
+                                <span class="ion-ios-pin"></span>
+                            </div>
+                            <div class="icon-box-content table-cell">
+                                <div class="icon-box-title">
+                                    <h4 class="icon-title">Find us in</h4>
+                                </div>
+                                <div class="icon-box-content">
+                                    <p class="mb-1">
+                                        bob investors
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="icon-box">
+                            <div class="icon-box-icon">
+                                <span class="ion-ios-redo"></span>
+                            </div>
+                            <div class="icon-box-content table-cell">
+                                <div class="icon-box-title">
+                                    <h4 class="icon-title">Social networks</h4>
+                                </div>
+                                <div class="icon-box-content">
+                                    <div class="socials-footer">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a href="#" class="link-one">
+                                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#" class="link-one">
+                                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#" class="link-one">
+                                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#" class="link-one">
+                                                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#" class="link-one">
+                                                    <i class="fa fa-dribbble" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+
 <!--/ footer Star /-->
 <section class="section-footer">
     <div class="container">
@@ -234,17 +280,15 @@
                     </div>
                     <div class="w-body-a">
                         <p class="w-text-a color-text-a">
-                            Leading financial services company and pioneer in the online stock sales industry. Itâ€™s the platform for traders passionate about the markets. Intuitive and easy-to-use. Packed with opportunity-finding and market-seizing tools and features.
+                            Leading financial services company and pioneer in the online stock sales industry. It’s the platform for traders passionate about the markets. Intuitive and easy-to-use. Packed with opportunity-finding and market-seizing tools and features.
                         </p>
                     </div>
                     <div class="w-footer-a">
                         <ul class="list-unstyled">
                             <li class="color-a">
-                                <span class="color-text-a">Phone </span> +1 (123)456-7890
-                            </li>
+                                <span class="color-text-a">Phone </span> +1 (123)456-7890 </li>
                             <li class="color-a">
-                                <span class="color-text-a">Email </span> bobinvestors@gmail.com
-                            </li>
+                                <span class="color-text-a">Email </span> bobinvestors@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -369,13 +413,17 @@
     </div>
 </footer>
 <!--/ Footer End /-->
+
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 <div id="preloader"></div>
+
 <!-- JavaScript Libraries -->
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/jquery/jquery-migrate.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
+
 </body>
 </html>

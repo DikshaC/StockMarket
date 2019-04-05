@@ -3,9 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
 
     <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
@@ -19,11 +16,6 @@
 
     <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
@@ -42,7 +34,6 @@
         $query = "SELECT * FROM person where id={$userId} and delete_flag=0";
         $results = $conn->query($query);
     ?>
-
 </head>
 
 <body>
@@ -91,7 +82,7 @@
             <span></span>
             <span></span>
         </button>
-        <a class="navbar-brand text-brand" href="index.html">
+        <a class="navbar-brand text-brand" href="index.php">
             <img src="img/bob.jpg" width="100" height="100"/>
             <span class="color-b">Bulls</span>
             <span class="color-a">Or</span>
@@ -103,13 +94,13 @@
         <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Home</a>
+                    <a class="nav-link active" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link" href="about.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -117,13 +108,14 @@
                         <i class="fas fa-user-circle fa-2x"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="property-single.html">Transaction History</a>
-                        <a class="dropdown-item" href="blog-single.html">Account Settings</a>
-                        <a class="dropdown-item" href="agents-grid.html">LogOut</a>
+                        <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
+                        <a class="dropdown-item" href="userProfile.php">Account Settings</a>
+                        <a class="dropdown-item" href="userInventory.php">My Stocks</a>
+                        <a class="dropdown-item" href="login.html">LogOut</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="property-grid.html"><i class="fas fa-shopping-cart fa-2x"></i></a>
+                    <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
                 </li>
             </ul>
         </div>
@@ -135,52 +127,51 @@
 </nav>
 <!--/ Nav End /-->
 
-<div class="col-md-12 section-t8">
-    <div class="container">
+<div class="container section-t8">
         <?php while ($result = $results->fetch_assoc()) { ?>
         <h3>Profile</h3>
         <form class="form" action="userProfile.php" method="post" id="userProfileForm">
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="first_name"><strong>First Name</strong></label>
-                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" value="<?php echo $result['NAME']; ?>">
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" value="<?php echo $result['NAME']; ?>" required>
 
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="last_name"><strong>Last Name</strong></label>
-                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" value="<?php echo $result['NAME']; ?>">
+                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" value="<?php echo $result['NAME']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="gender"><strong>Gender</strong></label>
-                    <input type="text" class="form-control" name="gender" id="gender" placeholder="gender" value="<?php echo $result['gender']; ?>">
+                    <input type="text" class="form-control" name="gender" id="gender" placeholder="gender" value="<?php echo $result['gender']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="phone"><strong>Phone</strong></label>
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" value="<?php echo $result['phone']; ?>">
+                    <input type="tel" class="form-control" name="phone" id="phone" placeholder="enter phone" value="<?php echo $result['phone']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="email"><strong>Email</strong></label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" value="<?php echo $result['email']; ?>">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" value="<?php echo $result['email']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="username"><strong>Username</strong></label>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="username" value="<?php echo $result['username']; ?>">
+                    <input type="text" class="form-control" name="username" id="username" placeholder="username" value="<?php echo $result['username']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-6">
                     <label for="password"><strong>Password</strong></label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="password" value="<?php echo $result['pass']; ?>">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password" value="<?php echo $result['pass']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
@@ -192,7 +183,6 @@
             </div>
         </form>
         <?php } ?>
-    </div>
 </div>
 
 
@@ -347,8 +337,8 @@
 <!-- JavaScript Libraries -->
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="lib/popper/popper.min.js"></script>
 <script src="lib/easing/easing.min.js"></script>
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="lib/scrollreveal/scrollreveal.min.js"></script>

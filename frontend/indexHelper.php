@@ -1,5 +1,4 @@
 <?php
-
 //var data = {
 //    id: $val,
 //            quantity : $quantity,
@@ -80,7 +79,6 @@ if(isset($_POST['company_id'])) {
     $quantity = $_POST['quantity'];
     $buy_sell = $_POST['buy_sell'];
     $price = $_POST['price'];
-    //$userId = $_POST['userId'];
 
     $query1 = "SELECT num_shares FROM user_stocks where userId=" . $userId . " and companyId=" . $id . " and delete_flag=0";
     $results = $connection->query($query1);
@@ -111,9 +109,4 @@ if(isset($_POST['company_id'])) {
     }
 }
 $conn->close();
-
-//
-
-//
-//}
 ?>
