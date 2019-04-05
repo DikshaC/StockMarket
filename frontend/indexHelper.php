@@ -105,6 +105,10 @@ if(isset($_POST['company_id'])) {
             echo "no";
         }
     }
+
+    else{
+        echo "yes";
+    }
 }
 $conn->close();
 

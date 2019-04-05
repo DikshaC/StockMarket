@@ -6,7 +6,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -43,6 +43,8 @@
     require('predict.php');
     require_once 'Pagination.php';
     require('db_connection.php');
+    //include('get_api_data.php');
+
     global $connection;
     $conn = $connection;
 
@@ -153,11 +155,24 @@
 <!--/ Nav End /-->
 
 
-<?php
-$j=0;
-while($j==0 || $j==3 && $j<6){
-    ?>
+
 <div class = "section-t8 container">
+
+    <p>
+        <a id="refresh_button" class="btn btn-success">
+            <span  class="fa fa-refresh" style="color:white" ></span>
+        </a>
+    </p>
+
+<!--    <i id="refresh_button" class="fa fa-refresh" style="font-size:18px" ></i>-->
+
+
+
+    <?php
+    $j=0;
+    while($j==0 || $j==3 && $j<6){
+        ?>
+
     <div class="card-deck" style="padding: 5px">
         <?php
         for($i=$j;$i<$j+3&&$i<count($data_arr);$i++){
