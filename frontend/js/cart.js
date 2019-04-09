@@ -17,7 +17,12 @@ $(document).ready(function () {
     });
 
     $("#checkout").click(function () {
-        window.location = "http://localhost/StockMarket/frontend/payment.php";
+        if($("#table-row").length) {
+            window.location = "http://localhost/StockMarket/frontend/payment.php";
+        }
+        else {
+            alert("No items in cart to checkout");
+        }
 
     });
 });

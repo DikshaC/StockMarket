@@ -104,7 +104,7 @@
             while ($result = $results->fetch_assoc()) {
                 $i= $i+1;
         ?>
-        <tr>
+        <tr id="table-row">
             <td> <?php echo $i ?>  </td>
             <td> <?php echo $result['companyName'] ?> </td>
             <td><?php echo $result['total_price'] ?></td>
