@@ -102,7 +102,7 @@
                     <button type="submit" name="sort_stock" class="btn btn-b">Sort Stock</button>
                 </div>
 
-                <div class="col-md-6 mb-2">
+                <div class="col-md-6 mb-2" style="padding-top: 50px;">
                     <div class="form-group">
                         <label for="Type">Search Company</label>
                         <select class="form-control form-control-lg form-control-a" id="Type" name="search">
@@ -113,7 +113,7 @@
                             <?php } ?>
                         </select>
                     </div>
-                </div>
+                </div style>
                 <div class="col-md-12">
                     <button type="submit" name="search_stock" class="btn btn-b">Search Company</button>
                 </div>
@@ -263,11 +263,7 @@
                                         <div class="container">
                                             <div class="page-header"></div>
                                             <div class="input-group spinner" >
-                                                <input type="text" class="form-control" value="1" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_spin">
-                                                <div class="input-group-btn-vertical">
-                                                    <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up_spinner" ><i class="fa fa-caret-up"></i></button>
-                                                    <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down_spinner"><i class="fa fa-caret-down"></i></button>
-                                                </div>
+                                                <input type="number" min="1" class="form-control" value="1" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_spin">
                                             </div>
                                         </div>
                                     </div>
