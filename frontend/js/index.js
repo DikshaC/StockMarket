@@ -121,6 +121,8 @@ $(document).ready(function () {
                     document.body.appendChild(mapForm);
 
                     mapForm.submit();
+                    alert("Please put your payment information");
+
                 }
 
                 else{
@@ -164,5 +166,17 @@ $(document).ready(function () {
         $('#'+$prediction_id+'_tradenav').removeClass("active");
         $('#'+$prediction_id+'_detailsnav').removeClass("active");
     });
+
+    $("#refresh_button").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "../frontend/get_api_data.php",
+            success:function () {
+                alert("Page refreshed");
+                window.location.href = 'index.php';
+            }
+        });
+    });
+
 });
 
