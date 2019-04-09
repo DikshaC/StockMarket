@@ -79,7 +79,6 @@
             }
         }
     ?>
-
 </head>
 
 <body>
@@ -119,7 +118,6 @@
 </div>
 <!--/ Form Search End /-->
 
-<!--/ Nav Star /-->
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container-fluid">
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
@@ -172,7 +170,7 @@
 
 <div class="container section-t8">
     <h3>Company Details</h3>
-    <form class="form" action="admin_addCompany.php" method="POST" id="registrationForm"  enctype="multipart/form-data">
+    <form class="form" action="admin_addCompany.php" method="POST">
         <div class="form-group">
             <div class="col-xs-6">
                 <label for="company_name"><strong>Name</strong></label>
@@ -185,21 +183,18 @@
                 <input type="text" class="form-control" name="symbol" id="symbol" placeholder="FASDAQ Symbol">
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-xs-6">
                 <label for="description"><strong>Description</strong></label>
                 <input type="text" class="form-control" name="description" id="description" placeholder="Description">
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-xs-6">
                 <label for="fileToUpload"><strong>Image </strong></label>
                 <input type="file" name="fileToUpload" id="fileToUpload">
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-xs-12">
                 <br>

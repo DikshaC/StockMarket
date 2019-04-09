@@ -30,9 +30,31 @@
         global $connection;
         $conn = $connection;
 
-        $limit      =  6;
-        $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
-        $query      = "SELECT * FROM Company";
+        $limit = 6;
+        $page = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
+
+        $query = "SELECT * FROM Company";
+        $search_results = $conn ->query($query);
+
+        if(isset($_POST['search_stock'])){
+            $id = $_POST['search'];
+            $query = "SELECT * FROM Company where id=".$id;
+            $_POST['search_stock'] = null;
+        }
+
+        if(isset($_POST['sort_stock'])){
+            $val = $_POST['sort'];
+            echo $val;
+            switch($val){
+                case 1: $query = "SELECT * FROM Company ORDER BY name"; break;
+                case 2: $query = "SELECT * FROM company ORDER BY name DESC"; break;
+                case 3: $query = "SELECT * FROM Company ORDER BY price"; break;
+                case 4: $query = "SELECT * FROM Company ORDER BY price DESC"; break;
+                default: $query = "SELECT * FROM Company";
+            }
+            $_POST['sort_stock'] = null;
+        }
+
         $Paginator  = new pagination( $conn, $query );
         $results    = $Paginator->getData( $limit,$page );
         $data_arr = $results->data;
@@ -49,27 +71,37 @@
     </div>
     <span class="close-box-collapse right-boxed ion-ios-close"></span>
     <div class="box-collapse-wrap form">
-        <form class="form-a">
+        <form class="form-a" method="post" action="index.php">
             <div class="row">
                 <div class="col-md-12 mb-2">
                     <div class="form-group">
-                        <label for="Type">Keyword</label>
-                        <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Company</label>
-                        <select class="form-control form-control-lg form-control-a" id="Type">
-                            <option>Facebook</option>
-                            <option>Google</option>
-                            <option>Amazon</option>
-                            <option>Microsoft</option>
+                        <label for="Type">Sort Price/ Company</label>
+                        <select class="form-control form-control-lg form-control-a" id="Type" name="sort">
+                            <option value="1">Company: Low To High</option>
+                            <option value="2">Company: High To Low</option>
+                            <option value="3">Price: Low To High</option>
+                            <option value="4">Price: High To Low</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-b">Search Stock</button>
+                    <button type="submit" name="sort_stock" class="btn btn-b">Sort Stock</button>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <div class="form-group">
+                        <label for="Type">Search Company</label>
+                        <select class="form-control form-control-lg form-control-a" id="Type" name="search">
+                            <?php
+                            while ($search_result = $search_results->fetch_assoc()) {
+                            ?>
+                            <option value="<?php echo $search_result['id']; ?>"><?php echo $search_result['name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" name="search_stock" class="btn btn-b">Search Company</button>
                 </div>
             </div>
         </form>
@@ -401,6 +433,13 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!--<script src="lib/jquery/jquery.min.js"></script>-->
+<script src="lib/jquery/jquery-migrate.min.js"></script>
+<script src="lib/popper/popper.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/scrollreveal/scrollreveal.min.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
