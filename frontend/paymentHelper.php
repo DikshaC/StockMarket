@@ -140,11 +140,9 @@ if(isset($_POST['cc_submit'])|| isset($_POST['pp_submit'])){
                 if (mysqli_num_rows($userStocks) > 0) {
                     $query = "Update user_stocks set num_shares= num_shares+" . $cart_result['quantity'] . " where userId=" . $userId . " and companyId=" . $cart_result['companyId'] . " and delete_flag=0";
                     $conn->query($query);
-                    // echo "Added items to buy in cart";
                 } else {
                     $query = "Insert into user_stocks(userId, companyId,num_shares) values (" . $userId . "," . $cart_result['companyId'] . "," . $cart_result['quantity'] . ")";
                     $conn->query($query);
-                    //echo "Added items to buy in cart";
                 }
 
             }

@@ -4,19 +4,10 @@
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
 
-    <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-    <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-
-    <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -301,10 +292,7 @@
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 <div id="preloader"></div>
 
-<!-- JavaScript Libraries -->
 <script src="lib/popper/popper.min.js"></script>
-
-<!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
 </body>
 </html>

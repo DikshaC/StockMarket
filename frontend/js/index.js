@@ -97,10 +97,6 @@ $(document).ready(function () {
                     mapForm.appendChild(mapInput);
                     document.body.appendChild(mapForm);
                     mapForm.submit();
-                    $('.error_msg').html("Please put your payment information");
-                    $('#myModal').modal('show');
-                    $('.modal-backdrop.in').css('opacity', '0.5');
-                    event.preventDefault();
                 }
                 else{
                     $('.error_msg').html("You don't have enough stocks to sell for this company.");

@@ -4,20 +4,16 @@
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
 
-    <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-    <!-- Bootstrap CSS File -->
      <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
+
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-migrate.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
     <?php
         require('db_connection.php');
         global $connection;
@@ -97,6 +93,7 @@
 <!--/ Nav End /-->
 
 <div class="section-t8 container">
+    <h3>Sales History</h3>
     <ul class="nav nav-tabs md-tabs" id="myTabMD" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#Bought" role="tab">Bought Stock</a>
@@ -299,9 +296,6 @@
 <div id="preloader"></div>
 
 <!-- JavaScript Libraries -->
-<script src="lib/jquery/jquery.min.js"></script>
-<script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
