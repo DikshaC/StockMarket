@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $("[id$='_cart_button']").on('click',function (event) {
         $id = event.target.id;
         $val = $id.replace('card', '');
@@ -32,6 +31,7 @@ $(document).ready(function () {
             success:function (response) {
                 $('.error_msg').html(response);
                 $('#myModal').modal('show');
+                $('.modal-backdrop.in').css('opacity', '0.5');
                 event.preventDefault();
             }
         })
@@ -99,11 +99,13 @@ $(document).ready(function () {
                     mapForm.submit();
                     $('.error_msg').html("Please put your payment information");
                     $('#myModal').modal('show');
+                    $('.modal-backdrop.in').css('opacity', '0.5');
                     event.preventDefault();
                 }
                 else{
                     $('.error_msg').html("You don't have enough stocks to sell for this company.");
                     $('#myModal').modal('show');
+                    $('.modal-backdrop.in').css('opacity', '0.5');
                     event.preventDefault();
                 }
             }
@@ -140,6 +142,5 @@ $(document).ready(function () {
             }
         });
     });
-
 });
 
