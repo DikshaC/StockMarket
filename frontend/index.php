@@ -9,7 +9,6 @@
 
     <link rel="stylesheet" href="css/style.css">
 
-
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
 
@@ -33,30 +32,32 @@
     <link href="css/style.css" rel="stylesheet">
 
     <?php
-    //require('index.php');
-    require('predict.php');
-    require_once 'Pagination.php';
-    require('db_connection.php');
-    //include('get_api_data.php');
+        require('predict.php');
+        require_once 'Pagination.php';
+        require('db_connection.php');
+        global $connection;
+        $conn = $connection;
+        session_start();
+        if(isset($_SESSION['sort_stock'])){
+            $_POST['sort_stock']=TRUE;
+            echo "POST['sort_stock'] = ".$_POST['sort_stock'];
+            $val=$_SESSION['sort_stock'];
+            echo "POST['stock'] = ".$_POST['sort'];
 
-    global $connection;
-    $conn = $connection;
-
+        }
         $limit = 6;
         $page = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
 
         $query = "SELECT * FROM Company";
         $search_results = $conn ->query($query);
 
-        if(isset($_POST['search_stock'])){
-            $id = $_POST['search'];
-            $query = "SELECT * FROM Company where id=".$id;
-            $_POST['search_stock'] = null;
-        }
-
         if(isset($_POST['sort_stock'])){
-            $val = $_POST['sort'];
-            echo $val;
+            if(isset($_POST['sort'])){
+                $val= $_POST['sort'];
+            }
+
+            echo "val = ".$val;
+            $_SESSION['sort_stock']=$val;
             switch($val){
                 case 1: $query = "SELECT * FROM Company ORDER BY name"; break;
                 case 2: $query = "SELECT * FROM company ORDER BY name DESC"; break;
@@ -65,6 +66,11 @@
                 default: $query = "SELECT * FROM Company";
             }
             $_POST['sort_stock'] = null;
+        }
+        if(isset($_POST['search_stock'])){
+            $id = $_POST['search'];
+            $query = "SELECT * FROM Company where id=".$id;
+          $_POST['search_stock'] = null;
         }
 
         $Paginator  = new pagination( $conn, $query );
@@ -194,25 +200,16 @@
 </nav>
 <!--/ Nav End /-->
 
-
-
 <div class = "section-t8 container">
-
     <p>
         <a id="refresh_button" class="btn btn-success">
             <span  class="fa fa-refresh" style="color:white" ></span>
         </a>
     </p>
-
-<!--    <i id="refresh_button" class="fa fa-refresh" style="font-size:18px" ></i>-->
-
-
-
     <?php
     $j=0;
     while($j==0 || $j==3 && $j<6){
         ?>
-
     <div class="card-deck" style="padding: 5px">
         <?php
             for($i=$j;$i<$j+3&&$i<count($data_arr);$i++){

@@ -158,6 +158,7 @@ $(document).ready(function () {
     });
 
     $("#refresh_button").click(function () {
+        $.post( "index.php", { search_stock: '', sort_stock: '' } );
         $.ajax({
             type: "POST",
             url: "../frontend/get_api_data.php",
