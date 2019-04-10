@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="css/style.css">
-
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
 
@@ -20,17 +12,16 @@
 
     <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+    <script src="js/index.js"></script>
 
     <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
-
     <?php
         require('predict.php');
         require_once 'Pagination.php';
@@ -40,10 +31,7 @@
         session_start();
         if(isset($_SESSION['sort_stock'])){
             $_POST['sort_stock']=TRUE;
-            echo "POST['sort_stock'] = ".$_POST['sort_stock'];
             $val=$_SESSION['sort_stock'];
-            echo "POST['stock'] = ".$_POST['sort'];
-
         }
         $limit = 6;
         $page = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
@@ -55,8 +43,6 @@
             if(isset($_POST['sort'])){
                 $val= $_POST['sort'];
             }
-
-            echo "val = ".$val;
             $_SESSION['sort_stock']=$val;
             switch($val){
                 case 1: $query = "SELECT * FROM Company ORDER BY name"; break;
@@ -70,18 +56,14 @@
         if(isset($_POST['search_stock'])){
             $id = $_POST['search'];
             $query = "SELECT * FROM Company where id=".$id;
-          $_POST['search_stock'] = null;
+            $_POST['search_stock'] = null;
         }
 
         $Paginator  = new pagination( $conn, $query );
         $results    = $Paginator->getData( $limit,$page );
         $data_arr = $results->data;
     ?>
-    <script src="js/index.js"></script>
-
-
 </head>
-
 <body>
 <div class="click-closed"></div>
 <!--/ Form Search Star /-->
@@ -107,7 +89,6 @@
                 <div class="col-md-12">
                     <button type="submit" name="sort_stock" class="btn btn-b">Sort Stock</button>
                 </div>
-
                 <div class="col-md-6 mb-2" style="padding-top: 50px;">
                     <div class="form-group">
                         <label for="Type">Search Company</label>
@@ -119,7 +100,7 @@
                             <?php } ?>
                         </select>
                     </div>
-                </div style>
+                </div>
                 <div class="col-md-12">
                     <button type="submit" name="search_stock" class="btn btn-b">Search Company</button>
                 </div>
@@ -131,7 +112,6 @@
 <!--/ Modal Start /-->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -145,7 +125,6 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
 <!--/ Modal End /-->
@@ -451,9 +430,6 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 <!-- JavaScript Libraries -->
 
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<!--<script src="lib/jquery/jquery.min.js"></script>-->
 <script src="lib/jquery/jquery-migrate.min.js"></script>
 <script src="lib/popper/popper.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
@@ -463,7 +439,5 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
-
-
 </body>
 </html>
