@@ -100,6 +100,18 @@
                         <a class="dropdown-item" href="login.php">LogOut</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-cog fa-2x"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="admin_addCompany.php">Add Company</a></li>
+                        <li><a class="dropdown-item" href="admin_companyList.php">View Company</a></li>
+                        <li><a class="dropdown-item" href="admin_sales_history.php">Sales History</a></li>
+                        <li><a class="dropdown-item" href="login.php">LogOut</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
                 </li>
