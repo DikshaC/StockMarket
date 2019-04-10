@@ -23,7 +23,7 @@ $(document).ready(function () {
             type: "GET",
             dataType: 'text',
             data: data,
-            window:location.href = "http://localhost/StockMarket/frontend/admin_editCompany.php?id="+event.target.id,
+            window: location.href = "http://localhost/StockMarket/frontend/admin_editCompany.php?id="+event.target.id,
         })
     });
 });

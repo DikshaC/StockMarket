@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $(".fa-trash").click(function (event) {
         var data = {
           number: event.target.id
