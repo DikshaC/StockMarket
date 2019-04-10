@@ -17,7 +17,7 @@ $(document).ready(function () {
 
     $("#checkout").click(function (event) {
         if($("#table-row").length) {
-            window.location = "http://localhost/StockMarket/frontend/payment.php";
+            window.location = "payment.php";
         }
         else {
             $('.error_msg').html("No items in cart to checkout");

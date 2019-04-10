@@ -136,7 +136,6 @@ $(document).ready(function () {
             type: "POST",
             url: "../frontend/get_api_data.php",
             success:function () {
-                alert("Page refreshed");
                 window.location.href = 'index.php';
             }
         });
