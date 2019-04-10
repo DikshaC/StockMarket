@@ -15,14 +15,16 @@ $(document).ready(function () {
         })
     });
 
-    $("#checkout").click(function () {
+    $("#checkout").click(function (event) {
         if($("#table-row").length) {
             window.location = "http://localhost/StockMarket/frontend/payment.php";
         }
         else {
-            alert("No items in cart to checkout");
+            $('.error_msg').html("No items in cart to checkout");
+            $('#myModal').modal('show');
+            $('.modal-backdrop.in').css('opacity', '0.5');
+            event.preventDefault();
         }
-
     });
 });
 
