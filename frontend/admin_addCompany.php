@@ -17,6 +17,7 @@
     <?php
         require('db_connection.php');
         global $connection;
+        session_start();
 
         if(isset($_POST['btn_submit'])){
             $name = $_POST['company_name'];
@@ -139,7 +140,7 @@
 
 <div class="container section-t8">
     <h3>Company Details</h3>
-    <form class="form" action="admin_addCompany.php" method="POST">
+    <form class="form" action="admin_addCompany.php" method="POST" id="registrationForm"  enctype="multipart/form-data">
         <div class="form-group">
             <div class="col-xs-6">
                 <label for="company_name"><strong>Name</strong></label>

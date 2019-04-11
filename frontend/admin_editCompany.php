@@ -17,7 +17,7 @@
     <?php
         require('db_connection.php');
         global $connection;
-
+        session_start();
         if(isset($_POST['btn_submit'])){
             $id = $_GET['id'];
             if(isset($_POST['company_name'])){ $name = $_POST['company_name'];}

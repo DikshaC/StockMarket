@@ -9,7 +9,9 @@
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link href="css/style.css" rel="stylesheet">
-
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-migrate.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="js/cart.js"></script>
@@ -19,10 +21,28 @@
         global $connection;
         $conn = $connection;
         $userId = 1;
+        session_start();
 
         if(isset($_POST['number'])) {
             $id = $_POST['number'];
             $query1 = "Update cart set delete_flag=1 where id=".$id;
+            $conn->query($query1);
+        }
+
+        if(isset($_POST['quantity'])&&isset($_POST['cart_id'])){
+            $quantity = $_POST['quantity'];
+            $cart_id = $_POST['cart_id'];
+            $query_cart = "Select total_price,quantity from cart where id=".$cart_id;
+            $results=$conn->query($query_cart);
+            $per_price=0;
+            while($result=$results->fetch_assoc()){
+                $price=$result['total_price'];
+                $quan= $result['quantity'];
+                $per_price= $price/$quan;
+                echo "per price".$per_price;
+            }
+            $total_price=$per_price*$quantity;
+            $query1 = "Update cart set total_price={$total_price}, quantity={$quantity} where id=".$cart_id;
             $conn->query($query1);
         }
 
@@ -132,9 +152,12 @@
             <td> <?php echo $i ?>  </td>
             <td> <?php echo $result['companyName'] ?> </td>
             <td><?php echo $result['total_price'] ?></td>
-            <td><?php echo $result['quantity'] ?></td>
+            <td style="text-align: center">
+                <input id="<?php echo $result['id'] ?>_quantity" type="number" min="1" value="<?php echo $result['quantity'] ?>">
+                <i id="<?php echo $result['id'] ?>_tick"  class="fas fa-check" style="visibility: hidden; padding-left: 10px;"></i>
+            </td>
             <td><?php echo $result['buy_sell'] ?></td>
-            <td ><i  id="<?php echo $result['id'] ?>"  class="fa fa-trash"  aria-hidden="true"></i></td>
+            <td ><i  id="<?php echo $result['id'] ?>_trash"  class="fa fa-trash"  aria-hidden="true"></i></td>
         </tr>
         <?php
         }

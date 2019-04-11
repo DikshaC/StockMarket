@@ -13,6 +13,8 @@
     <script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/jquery/jquery-migrate.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <?php
+    ?>
 </head>
 <body>
 <div class="click-closed"></div>

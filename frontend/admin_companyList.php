@@ -18,7 +18,7 @@
     <?php
         require('db_connection.php');
         global $connection;
-
+        session_start();
         if(isset($_POST['number'])) {
             $id = $_POST['number'];
             $query1 = "Update company set delete_flag=1 where id=".$id;

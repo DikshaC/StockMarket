@@ -17,6 +17,7 @@
     <?php
         require('db_connection.php');
         global $connection;
+        session_start();
         $conn = $connection;
         $id = 1;
         $buy_query = "SELECT company.name AS Name , COUNT(transaction_details.id) AS NumberOfTransactions, SUM(transaction_details.price) AS Price, SUM(transaction_details.quantity) AS Quantity 
