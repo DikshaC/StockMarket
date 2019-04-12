@@ -4,59 +4,24 @@
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
 
-    <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
-    <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Libraries CSS Files -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <!-- Main Stylesheet File -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link href="css/style.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
+
+<?php
+session_start();
+?>
 
 <body>
 <div class="click-closed"></div>
-<!--/ Form Search Star /-->
-<div class="box-collapse">
-    <div class="title-box-d">
-        <h3 class="title-d">Search Stocks</h3>
-    </div>
-    <span class="close-box-collapse right-boxed ion-ios-close"></span>
-    <div class="box-collapse-wrap form">
-        <form class="form-a">
-            <div class="row">
-                <div class="col-md-12 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Keyword</label>
-                        <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Company</label>
-                        <select class="form-control form-control-lg form-control-a" id="Type">
-                            <option>Facebook</option>
-                            <option>Google</option>
-                            <option>Amazon</option>
-                            <option>Microsoft</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-b">Search Stock</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!--/ Form Search End /-->
 
 <!--/ Nav Star /-->
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
@@ -93,24 +58,32 @@
                         <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
                         <a class="dropdown-item" href="userProfile.php">Account Settings</a>
                         <a class="dropdown-item" href="userInventory.php">My Stocks</a>
-                        <a class="dropdown-item" href="login.html">LogOut</a>
+                        <a class="dropdown-item" href="login.php">LogOut</a>
                     </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-cog fa-2x"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="admin_addCompany.php">Add Company</a></li>
+                        <li><a class="dropdown-item" href="admin_companyList.php">View Company</a></li>
+                        <li><a class="dropdown-item" href="admin_sales_history.php">Sales History</a></li>
+                        <li><a class="dropdown-item" href="login.php">LogOut</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
                 </li>
             </ul>
         </div>
-        <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
-                data-target="#navbarTogglerDemo01" aria-expanded="false">
-            <span class="fa fa-search" aria-hidden="true"></span>
-        </button>
     </div>
 </nav>
 <!--/ Nav End /-->
 
 <div class="col-md-12 section-t8">
-    <section class="intro-single">
+    <section class="intro-single" style="padding-top: 10px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-8">
@@ -193,198 +166,6 @@
                             </div>
                         </div>
                     </section>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section-agents section-t8">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="title-wrap d-flex justify-content-between">
-                        <div class="title-box">
-                            <h2 class="title-a">Meet Our Team</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card-box-d">
-                        <div class="card-img-d">
-                            <img src="img/agent.jpg" alt="" class="img-d img-fluid">
-                        </div>
-                        <div class="card-overlay card-overlay-hover">
-                            <div class="card-header-d">
-                                <div class="card-title-d align-self-center">
-                                    <h3 class="title-d">
-                                        <a href="#" class="link-two">Margaret Sotillo
-                                            <br> Escala</a>
-                                    </h3>
-                                </div>
-                            </div>
-                            <div class="card-body-d">
-                                <p class="content-d color-text-a">
-                                    Sales Manager
-                                </p>
-                                <div class="info-agents color-a">
-                                    <p>
-                                        <strong>Phone: </strong> +54 356 945234</p>
-                                    <p>
-                                        <strong>Email: </strong> agents@example.com</p>
-                                </div>
-                            </div>
-                            <div class="card-footer-d">
-                                <div class="socials-footer d-flex justify-content-center">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-instagram" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-dribbble" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-box-d">
-                        <div class="card-img-d">
-                            <img src="img/agent.jpg" alt="" class="img-d img-fluid">
-                        </div>
-                        <div class="card-overlay card-overlay-hover">
-                            <div class="card-header-d">
-                                <div class="card-title-d align-self-center">
-                                    <h3 class="title-d">
-                                        <a href="#" class="link-two">Stiven Spilver
-                                            <br> Darw</a>
-                                    </h3>
-                                </div>
-                            </div>
-                            <div class="card-body-d">
-                                <p class="content-d color-text-a">
-                                    Customer Support Agent
-                                </p>
-                                <div class="info-agents color-a">
-                                    <p>
-                                        <strong>Phone: </strong> +54 356 945234</p>
-                                    <p>
-                                        <strong>Email: </strong> agents@example.com</p>
-                                </div>
-                            </div>
-                            <div class="card-footer-d">
-                                <div class="socials-footer d-flex justify-content-center">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-instagram" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-dribbble" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-box-d">
-                        <div class="card-img-d">
-                            <img src="img/agent.jpg" alt="" class="img-d img-fluid">
-                        </div>
-                        <div class="card-overlay card-overlay-hover">
-                            <div class="card-header-d">
-                                <div class="card-title-d align-self-center">
-                                    <h3 class="title-d">
-                                        <a href="#" class="link-two">Emma Toledo
-                                            <br> Cascada</a>
-                                    </h3>
-                                </div>
-                            </div>
-                            <div class="card-body-d">
-                                <p class="content-d color-text-a">
-                                    Stock Broker
-                                </p>
-                                <div class="info-agents color-a">
-                                    <p>
-                                        <strong>Phone: </strong> +54 356 945234</p>
-                                    <p>
-                                        <strong>Email: </strong> agents@example.com</p>
-                                </div>
-                            </div>
-                            <div class="card-footer-d">
-                                <div class="socials-footer d-flex justify-content-center">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-instagram" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="link-one">
-                                                <i class="fa fa-dribbble" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -539,11 +320,6 @@
 
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 <div id="preloader"></div>
-
-<!-- JavaScript Libraries -->
-<script src="lib/jquery/jquery.min.js"></script>
-<script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>

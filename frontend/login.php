@@ -32,6 +32,53 @@
 </head>
 
 <body>
+<?php
+    session_start(); // Starting Session
+    $error=''; // Variable To Store Error Message
+
+    if (isset($_POST['submit'])) {
+        //echo "yes";
+        if (empty($_POST['username']) || empty($_POST['password'])) {
+            $error = "Username or Password is empty";
+        }
+        else
+        {
+            // Define $username and $password
+            $login_username=$_POST['username'];
+            $login_password=$_POST['password'];
+            // Establishing Connection with Server by passing server_name, user_id and password as a parameter
+            require ('db_connection.php');
+            global $connection;
+            $conn = $connection;
+            // To protect MySQL injection for Security purpose
+            $login_username = stripslashes($login_username);
+            $login_password = stripslashes($login_password);
+
+            // SQL query to fetch information of registerd users and finds user match.
+            $query1 = "select * from person where username='$login_username'";
+            $rows = $conn -> query($query1);
+            $user = $rows->fetch_assoc();
+            //echo $rows;
+            if ($rows -> num_rows == 1) {
+                //$query2 = "select pass from person where username='$login_username'";
+                //$result2 = $conn -> query($query2);
+                //$row = mysqli_fetch_array($result2,MYSQLI_ASSOC);
+                if(password_verify($login_password,$user["pass"])) {
+                    $_SESSION['login_user']=$login_username;
+                    echo "ddcdf";
+                    header("location: index.php");// Initializing Session
+                }
+                else{
+                    $error = "Invalid password";
+                }
+            }
+            else {
+                $error = "Username or Password is invalid";
+            }
+            $conn -> close(); // Closing Connection
+        }
+    }
+?>
   <div class="click-closed"></div>
   <!--/ Form Search Star /-->
   <div class="box-collapse">
@@ -69,31 +116,44 @@
   <!--/ Form Search End /-->
 
   <!--/ Nav Star /-->
-  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-    <div class="container-fluid">
-      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <a class="navbar-brand text-brand" href="login.html">
-      <img src="img/bob.jpg" width="100" height="100"/>
-      <span class="color-b">Bulls</span>
-      <span class="color-a">Or</span>
-  	  <span class="color-e">Bears</span></a>
-      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
-        data-target="#navbarTogglerDemo01" aria-expanded="false">
-        <span class="fa fa-search" aria-hidden="true"></span>
-      </button>
-    </div>
-  </nav>
+    <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+      <div class="container-fluid">
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+          aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <a class="navbar-brand text-brand" href="login.php">
+        <img src="img/bob.jpg" width="100" height="100"/>
+        <span class="color-b">Bulls</span>
+        <span class="color-a">Or</span>
+    	  <span class="color-e">Bears</span></a>
+        <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+          data-target="#navbarTogglerDemo01" aria-expanded="false">
+          <span class="fa fa-search" aria-hidden="true"></span>
+        </button>
+
+
+        <form class="form-inline" method="post" action="login.php">
+          <label class="sr-only" for="username">Username</label>
+          <input type="text" class="form-control mb-2 mr-sm-2" id="username" name="username" placeholder="Username">
+
+          <label class="sr-only" for="password">Password</label>
+          <input type="password" class="form-control mb-2 mr-sm-2" id="password" name="password" placeholder="password">
+          <input type="submit" class="btn btn-success mb-2" name="submit"> &nbsp; &nbsp;
+          <a class="btn btn-primary mb-2" role="button" href="register.php">Signup </a>
+            <span><?php echo $error; ?></span>
+        </form>
+
+      </div>
+    </nav>
   <!--/ Nav End /-->
 
   <!--/ Carousel Star /-->
   <div class="intro intro-carousel">
     <div id="carousel" class="owl-carousel owl-theme">
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-1.jpg)">
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/login1.jpg)">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
@@ -110,7 +170,7 @@
           </div>
         </div>
       </div>
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-2.jpg)">
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/login2.jpg)">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
@@ -127,7 +187,7 @@
           </div>
         </div>
       </div>
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-3.jpg)">
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/login3.jpg)">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">

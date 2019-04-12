@@ -13,20 +13,80 @@
     <script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/jquery/jquery-migrate.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/editCompany.js"></script>
 
     <?php
         require('db_connection.php');
         global $connection;
         session_start();
-        if(isset($_POST['number'])) {
-            $id = $_POST['number'];
-            $query1 = "Update company set delete_flag=1 where id=".$id;
-            $connection->query($query1);
+        if(isset($_POST['btn_submit'])){
+            $id = $_GET['id'];
+            if(isset($_POST['company_name'])){ $name = $_POST['company_name'];}
+            else{ $name='';}
+            if(isset($_POST['symbol'])){ $symbol = $_POST['symbol']; }
+            else{ $symbol='';}
+            if(isset($_POST['symbol'])){ $description = $_POST['description'];}
+            else{ $description = '';}
+
+            $target_dir = "img/";
+            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+            // Check if image file is a actual image or fake image
+            if(isset($_FILES['fileToUpload'])){
+
+                $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                if($check !== false) {
+                    echo "File is an image - " . $check["mime"] . ".";
+                    $uploadOk = 1;
+                } else {
+                    echo "File is not an image.";
+                    $uploadOk = 0;
+                }
+
+                // Check if file already exists
+                if (file_exists($target_file)) {
+                    echo "Sorry, file already exists.";
+                    $uploadOk = 0;
+                }
+                // Check file size
+                if ($_FILES["fileToUpload"]["size"] > 500000) {
+                    echo "Sorry, your file is too large.";
+                    $uploadOk = 0;
+                }
+                // Allow certain file formats
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                    && $imageFileType != "gif" ) {
+                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                    $uploadOk = 0;
+                }
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+                    echo "Sorry, your file was not uploaded.";
+                    // if everything is ok, try to upload file
+                }
+                else {
+                    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                        $file_path = "img/".$_FILES["fileToUpload"]["name"];
+                        $query = "Update company set name='{$name}',symbol='{$symbol}',description='{$description}',image='{$file_path}' where id=".$id;
+                        $connection->query($query);
+                    } else {
+                        echo "Sorry, there was an error uploading your file.";
+                    }
+                }
+            }
+            else{
+                $query = "Update company set name='{$name}',symbol='{$symbol}',description='{$description}' where id=".$id;
+                $connection->query($query);
+            }
         }
 
-        $query = "Select * from company where delete_flag=0";
-        $results = $connection->query($query);
+        if(isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $edit_query = "Select * from company where id=".$id;
+            $results = $connection->query($edit_query);
+        }
     ?>
 
 </head>
@@ -91,37 +151,49 @@
         </div>
     </div>
 </nav>
-<!--/ Nav End /-->
+/ Nav End /
 
 <div class="container section-t8">
-    <h3>Company Table</h3>
-    <table class="table">
-        <tr>
-            <th>S.No</th>
-            <th>Company Name</th>
-            <th>Description</th>
-            <th>Symbol</th>
-            <th>Select</th>
-            <th>Delete</th>
-        </tr>
-
-        <?php
-            $i=0;
-            while($result = $results->fetch_assoc()) {
-                $i=$i+1;
-                ?>
-                <tr>
-                    <td><?php echo $i;?> </td>
-                    <td><?php echo $result['name'];?></td>
-                    <td>yo</td>
-                    <td><?php echo $result['symbol'];?></td>
-                    <td><i class="fas fa-pencil-alt" id="<?php echo $result['id'];?>"></i></td>
-                    <td ><i  id="<?php echo $result['id'] ?>"  class="fa fa-trash"  aria-hidden="true"></i></td>
-                </tr>
-                <?php
-            }
-        ?>
-    </table>
+    <h3>Company Details</h3>
+    <?php
+    $i=0;
+    while($result = $results->fetch_assoc()) {
+        $i=$i+1;
+    ?>
+        <form class="form" method="POST">
+            <div class="form-group">
+                <div class="col-xs-6">
+                        <label for="company_name"><strong>Name</strong></label>
+                        <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Company name" value="<?php echo $result['name'];?>">
+                    </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                        <label for="symbol"><strong>Symbol</strong></label>
+                        <input type="text" class="form-control" name="symbol" id="symbol" placeholder="FASDAQ Symbol" value="<?php echo $result['symbol'];?>">
+                    </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label for="description"><strong>Description</strong></label>
+                    <input type="text" class="form-control" name="description" id="description" placeholder="Description" value="<?php echo $result['description'];?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label for="fileToUpload"><strong>Image </strong></label>
+                    <input type="file" name="fileToUpload" id="fileToUpload">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <br>
+                    <button class="btn btn-lg btn-success" name="btn_submit" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                    <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                </div>
+            </div>
+        </form>
+    <?php } ?>
 </div>
 
 
@@ -272,6 +344,8 @@
 
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 <div id="preloader"></div>
+
+<!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
 
 </body>

@@ -4,31 +4,45 @@
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
 
-    <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-    <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Libraries CSS Files -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <!-- Main Stylesheet File -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link href="css/style.css" rel="stylesheet">
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-migrate.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="js/cart.js"></script>
 
     <?php
         require('db_connection.php');
         global $connection;
         $conn = $connection;
         $userId = 1;
+        session_start();
 
         if(isset($_POST['number'])) {
             $id = $_POST['number'];
             $query1 = "Update cart set delete_flag=1 where id=".$id;
+            $conn->query($query1);
+        }
+
+        if(isset($_POST['quantity'])&&isset($_POST['cart_id'])){
+            $quantity = $_POST['quantity'];
+            $cart_id = $_POST['cart_id'];
+            $query_cart = "Select total_price,quantity from cart where id=".$cart_id;
+            $results=$conn->query($query_cart);
+            $per_price=0;
+            while($result=$results->fetch_assoc()){
+                $price=$result['total_price'];
+                $quan= $result['quantity'];
+                $per_price= $price/$quan;
+                echo "per price".$per_price;
+            }
+            $total_price=$per_price*$quantity;
+            $query1 = "Update cart set total_price={$total_price}, quantity={$quantity} where id=".$cart_id;
             $conn->query($query1);
         }
 
@@ -40,41 +54,25 @@
 
 <body>
 <div class="click-closed"></div>
-<!--/ Form Search Star /-->
-<div class="box-collapse">
-    <div class="title-box-d">
-        <h3 class="title-d">Search Stocks</h3>
-    </div>
-    <span class="close-box-collapse right-boxed ion-ios-close"></span>
-    <div class="box-collapse-wrap form">
-        <form class="form-a">
-            <div class="row">
-                <div class="col-md-12 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Keyword</label>
-                        <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Company</label>
-                        <select class="form-control form-control-lg form-control-a" id="Type">
-                            <option>Facebook</option>
-                            <option>Google</option>
-                            <option>Amazon</option>
-                            <option>Microsoft</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-b">Search Stock</button>
-                </div>
+<!--/ Modal Start /-->
+<div class="modal" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Message</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-        </form>
+            <div class="modal-body">
+                <p class="error_msg"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
-<!--/ Form Search End /-->
-
+<!--/ Modal End /-->
 <!--/ Nav Star /-->
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container-fluid">
@@ -110,18 +108,26 @@
                         <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
                         <a class="dropdown-item" href="userProfile.php">Account Settings</a>
                         <a class="dropdown-item" href="userInventory.php">My Stocks</a>
-                        <a class="dropdown-item" href="login.html">LogOut</a>
+                        <a class="dropdown-item" href="login.php">LogOut</a>
                     </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-cog fa-2x"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="admin_addCompany.php">Add Company</a></li>
+                        <li><a class="dropdown-item" href="admin_companyList.php">View Company</a></li>
+                        <li><a class="dropdown-item" href="admin_sales_history.php">Sales History</a></li>
+                        <li><a class="dropdown-item" href="login.php">LogOut</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
                 </li>
             </ul>
         </div>
-        <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
-                data-target="#navbarTogglerDemo01" aria-expanded="false">
-            <span class="fa fa-search" aria-hidden="true"></span>
-        </button>
     </div>
 </nav>
 <!--/ Nav End /-->
@@ -142,14 +148,16 @@
             while ($result = $results->fetch_assoc()) {
                 $i= $i+1;
         ?>
-        <tr>
+        <tr id="table-row">
             <td> <?php echo $i ?>  </td>
             <td> <?php echo $result['companyName'] ?> </td>
             <td><?php echo $result['total_price'] ?></td>
-            <td><?php echo $result['quantity'] ?></td>
-
+            <td style="text-align: center">
+                <input id="<?php echo $result['id'] ?>_quantity" type="number" min="1" value="<?php echo $result['quantity'] ?>">
+                <i id="<?php echo $result['id'] ?>_tick"  class="fas fa-check" style="visibility: hidden; padding-left: 10px;"></i>
+            </td>
             <td><?php echo $result['buy_sell'] ?></td>
-            <td ><i  id="<?php echo $result['id'] ?>"  class="fa fa-trash"  aria-hidden="true"></i></td>
+            <td ><i  id="<?php echo $result['id'] ?>_trash"  class="fa fa-trash"  aria-hidden="true"></i></td>
         </tr>
         <?php
         }
@@ -307,13 +315,7 @@
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 <div id="preloader"></div>
 
-<!-- JavaScript Libraries -->
 <script src="lib/popper/popper.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
-<script src="js/cart.js"></script>
 </body>
 </html>

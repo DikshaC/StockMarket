@@ -1,14 +1,9 @@
 $(document).ready(function () {
-
     $("[id$='_cart_button']").on('click',function (event) {
-        // alert("hi");
         $id = event.target.id;
         $val = $id.replace('card', '');
         $val = $val.replace('_cart_button','');
-
         $quantity = $('#card' + $val+ '_spin').val();
-
-
         //buy/sell
         if($('#card' + $val + '_buy_button').is(':checked')){
             $buy_sell = 'b'
@@ -16,15 +11,11 @@ $(document).ready(function () {
         else{
             $buy_sell = 's'
         }
-
         //Price
         $price = $('#card'+$val+'_price').text();
         $price = $price.replace('Price:','');
-
         $total_price = $quantity * $price;
-
         $userId = 1;
-
         var data = {
             id: $val,
             quantity : $quantity,
@@ -32,30 +23,24 @@ $(document).ready(function () {
             price: $total_price,
             userId: $userId
         };
-
         $.ajax({
             type: "POST",
             url: "../frontend/indexHelper.php",
             dataType: 'text',
             data: data,
             success:function (response) {
-                alert(response);
-                window.location.href = 'index.php';
-
+                $('.error_msg').html(response);
+                $('#myModal').modal('show');
+                $('.modal-backdrop.in').css('opacity', '0.5');
+                event.preventDefault();
             }
         })
-
-
     });
-
     $("[id$='_checkout_button']").on('click',function (event) {
         $id = event.target.id;
         $val = $id.replace('card', '');
         $val = $val.replace('_checkout_button','');
-        alert("hii");
         $quantity = $('#card' + $val+ '_spin').val();
-
-
         //buy/sell
         if($('#card' + $val + '_buy_button').is(':checked')){
             $buy_sell = 'b'
@@ -63,15 +48,11 @@ $(document).ready(function () {
         else{
             $buy_sell = 's'
         }
-
         //Price
         $price = $('#card'+$val+'_price').text();
         $price = $price.replace('Price:','');
-
         $total_price = $quantity * $price;
-
         $userId = 1;
-
         var data = {
             company_id: $val,
             quantity : $quantity,
@@ -79,16 +60,13 @@ $(document).ready(function () {
             price: $total_price,
             userId: $userId
         };
-
         $.ajax({
             type: "POST",
             url: "../frontend/indexHelper.php",
             dataType: "text",
             data: data,
             success:function (response) {
-
                 if(response == "yes") {
-
                     var mapForm = document.createElement("form");
                     mapForm.target = "Map";
                     mapForm.method = "POST"; // or "post" if appropriate
@@ -117,33 +95,17 @@ $(document).ready(function () {
                     mapInput.name = "price";
                     mapInput.value = $total_price;
                     mapForm.appendChild(mapInput);
-
                     document.body.appendChild(mapForm);
-
                     mapForm.submit();
-                    alert("Please put your payment information");
-
                 }
-
                 else{
-                    alert("You don't have enough stocks to sell for this company");
-                    $('#myModal').modal();
+                    $('.error_msg').html("You don't have enough stocks to sell for this company.");
+                    $('#myModal').modal('show');
+                    $('.modal-backdrop.in').css('opacity', '0.5');
+                    event.preventDefault();
                 }
             }
         });
-
-
-    });
-
-    $("[id$='up_spinner']").click(function() {
-            $up_id = $(this).attr('id');
-            $up_id = $up_id.replace('_up_spinner', '');
-            $('#'+$up_id+'_spin').val( parseInt($('#'+$up_id+'_spin').val()) + 1);
-    });
-    $("[id$='down_spinner']").on('click', function() {
-       $down_id = $(this).attr('id');
-       $down_id = $down_id.replace('_down_spinner', '');
-       $('#'+$down_id+'_spin').val( parseInt($('#'+$down_id+'_spin').val()) - 1);
     });
     $("[id$='_tradenav']").on('click', function() {
         $trade_id = $(this).attr('id');
@@ -166,17 +128,15 @@ $(document).ready(function () {
         $('#'+$prediction_id+'_tradenav').removeClass("active");
         $('#'+$prediction_id+'_detailsnav').removeClass("active");
     });
-
     $("#refresh_button").click(function () {
+        $.post( "index.php", { search_stock: '', sort_stock: '' } );
         $.ajax({
             type: "POST",
             url: "../frontend/get_api_data.php",
             success:function () {
-                alert("Page refreshed");
                 window.location.href = 'index.php';
             }
         });
     });
-
 });
 

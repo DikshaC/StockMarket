@@ -3,53 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
-    <!-- Favicons -->
+
     <link href="img/bob.jpg" rel="icon">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-    <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Libraries CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
+
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-migrate.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <?php
+    ?>
 </head>
 <body>
 <div class="click-closed"></div>
-<!--/ Form Search Star /-->
-<div class="box-collapse">
-    <div class="title-box-d">
-        <h3 class="title-d">Search Stocks</h3>
-    </div>
-    <span class="close-box-collapse right-boxed ion-ios-close"></span>
-    <div class="box-collapse-wrap form">
-        <form class="form-a">
-            <div class="row">
-                <div class="col-md-12 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Keyword</label>
-                        <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Company</label>
-                        <select class="form-control form-control-lg form-control-a" id="Type">
-                            <option>Facebook</option>
-                            <option>Google</option>
-                            <option>Amazon</option>
-                            <option>Microsoft</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-b">Search Stock</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!--/ Form Search End /-->
+
 <!--/ Nav Star /-->
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container-fluid">
@@ -85,8 +54,20 @@
                         <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
                         <a class="dropdown-item" href="userProfile.php">Account Settings</a>
                         <a class="dropdown-item" href="userInventory.php">My Stocks</a>
-                        <a class="dropdown-item" href="login.html">LogOut</a>
+                        <a class="dropdown-item" href="login.php">LogOut</a>
                     </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-cog fa-2x"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="admin_addCompany.php">Add Company</a></li>
+                        <li><a class="dropdown-item" href="admin_companyList.php">View Company</a></li>
+                        <li><a class="dropdown-item" href="admin_sales_history.php">Sales History</a></li>
+                        <li><a class="dropdown-item" href="login.php">LogOut</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
@@ -371,11 +352,6 @@
 <!--/ Footer End /-->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 <div id="preloader"></div>
-<!-- JavaScript Libraries -->
-<script src="lib/jquery/jquery.min.js"></script>
-<script src="lib/jquery/jquery-migrate.min.js"></script>
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
 </body>
 </html>

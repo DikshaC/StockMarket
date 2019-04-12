@@ -1,59 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="css/style.css">
-
-
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
 
-    <!-- Favicons -->
     <link href="img/bob.jpg" rel="icon">
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-    <!-- Bootstrap CSS File -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <link href="css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-
-    <!-- Libraries CSS Files -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-    <!-- Main Stylesheet File -->
-    <link href="css/style.css" rel="stylesheet">
+    <script src="js/index.js"></script>
 
     <?php
-    //require('index.php');
-    require('predict.php');
-    require_once 'Pagination.php';
-    require('db_connection.php');
-    //include('get_api_data.php');
+        require('predict.php');
+        require_once 'Pagination.php';
+        require('db_connection.php');
+        global $connection;
+        $conn = $connection;
+        session_start();
+        if(isset($_SESSION['sort_stock'])){
+            $_POST['sort_stock']=TRUE;
+            $val=$_SESSION['sort_stock'];
+        }
+        $limit = 6;
+        $page = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
 
-    global $connection;
-    $conn = $connection;
+        $query = "SELECT * FROM Company";
+        $search_results = $conn ->query($query);
 
-        $limit      =  6;
-        $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
-        $query      = "SELECT * FROM Company";
+        if(isset($_POST['sort_stock'])){
+            if(isset($_POST['sort'])){
+                $val= $_POST['sort'];
+            }
+            $_SESSION['sort_stock']=$val;
+            switch($val){
+                case 1: $query = "SELECT * FROM Company ORDER BY name"; break;
+                case 2: $query = "SELECT * FROM company ORDER BY name DESC"; break;
+                case 3: $query = "SELECT * FROM Company ORDER BY price"; break;
+                case 4: $query = "SELECT * FROM Company ORDER BY price DESC"; break;
+                default: $query = "SELECT * FROM Company";
+            }
+            $_POST['sort_stock'] = null;
+        }
+        if(isset($_POST['search_stock'])){
+            $id = $_POST['search'];
+            $query = "SELECT * FROM Company where id=".$id;
+            $_POST['search_stock'] = null;
+        }
+
         $Paginator  = new pagination( $conn, $query );
         $results    = $Paginator->getData( $limit,$page );
         $data_arr = $results->data;
     ?>
-    <script src="js/index.js"></script>
-
-
 </head>
-
 <body>
 <div class="click-closed"></div>
 <!--/ Form Search Star /-->
@@ -63,27 +65,36 @@
     </div>
     <span class="close-box-collapse right-boxed ion-ios-close"></span>
     <div class="box-collapse-wrap form">
-        <form class="form-a">
+        <form class="form-a" method="post" action="index.php">
             <div class="row">
                 <div class="col-md-12 mb-2">
                     <div class="form-group">
-                        <label for="Type">Keyword</label>
-                        <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Company</label>
-                        <select class="form-control form-control-lg form-control-a" id="Type">
-                            <option>Facebook</option>
-                            <option>Google</option>
-                            <option>Amazon</option>
-                            <option>Microsoft</option>
+                        <label for="Type">Sort Price/ Company</label>
+                        <select class="form-control form-control-lg form-control-a" id="Type" name="sort">
+                            <option value="1">Company: Low To High</option>
+                            <option value="2">Company: High To Low</option>
+                            <option value="3">Price: Low To High</option>
+                            <option value="4">Price: High To Low</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-b">Search Stock</button>
+                    <button type="submit" name="sort_stock" class="btn btn-b">Sort Stock</button>
+                </div>
+                <div class="col-md-6 mb-2" style="padding-top: 50px;">
+                    <div class="form-group">
+                        <label for="Type">Search Company</label>
+                        <select class="form-control form-control-lg form-control-a" id="Type" name="search">
+                            <?php
+                            while ($search_result = $search_results->fetch_assoc()) {
+                            ?>
+                            <option value="<?php echo $search_result['id']; ?>"><?php echo $search_result['name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" name="search_stock" class="btn btn-b">Search Company</button>
                 </div>
             </div>
         </form>
@@ -91,23 +102,21 @@
 </div>
 <!--/ Form Search End /-->
 <!--/ Modal Start /-->
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal" id="myModal" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title">Message</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
             </div>
             <div class="modal-body">
-                <p>Some text in the modal.</p>
+                <p class="error_msg"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
 <!--/ Modal End /-->
@@ -142,12 +151,24 @@
                        aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user-circle fa-2x"></i>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
-                        <a class="dropdown-item" href="userProfile.php">Account Settings</a>
-                        <a class="dropdown-item" href="userInventory.php">My Stocks</a>
-                        <a class="dropdown-item" href="login.html">LogOut</a>
-                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="transactionHistory.php">Transaction History</a></li>
+                        <li><a class="dropdown-item" href="userProfile.php">Account Settings</a></li>
+                        <li><a class="dropdown-item" href="userInventory.php">My Stocks</a></li>
+                        <li><a class="dropdown-item" href="login.php">LogOut</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-cog fa-2x"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="admin_addCompany.php">Add Company</a></li>
+                        <li><a class="dropdown-item" href="admin_companyList.php">View Company</a></li>
+                        <li><a class="dropdown-item" href="admin_sales_history.php">Sales History</a></li>
+                        <li><a class="dropdown-item" href="login.php">LogOut</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
@@ -162,25 +183,16 @@
 </nav>
 <!--/ Nav End /-->
 
-
-
 <div class = "section-t8 container">
-
     <p>
         <a id="refresh_button" class="btn btn-success">
             <span  class="fa fa-refresh" style="color:white" ></span>
         </a>
     </p>
-
-<!--    <i id="refresh_button" class="fa fa-refresh" style="font-size:18px" ></i>-->
-
-
-
     <?php
     $j=0;
     while($j==0 || $j==3 && $j<6){
         ?>
-
     <div class="card-deck" style="padding: 5px">
         <?php
             for($i=$j;$i<$j+3&&$i<count($data_arr);$i++){
@@ -231,11 +243,7 @@
                                         <div class="container">
                                             <div class="page-header"></div>
                                             <div class="input-group spinner" >
-                                                <input type="text" class="form-control" value="1" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_spin">
-                                                <div class="input-group-btn-vertical">
-                                                    <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_up_spinner" ><i class="fa fa-caret-up"></i></button>
-                                                    <button class="btn btn-default" type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_down_spinner"><i class="fa fa-caret-down"></i></button>
-                                                </div>
+                                                <input type="number" min="1" class="form-control" value="1" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_spin">
                                             </div>
                                         </div>
                                     </div>
@@ -425,13 +433,13 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 
 <!-- JavaScript Libraries -->
 
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="lib/jquery/jquery-migrate.min.js"></script>
+<script src="lib/popper/popper.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/scrollreveal/scrollreveal.min.js"></script>
 
 <!-- Template Main Javascript File -->
 <script src="js/main.js"></script>
-
-
 </body>
 </html>
