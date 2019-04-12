@@ -203,6 +203,10 @@ function find_state_count($p_states, $transition_states){
     return $state_count;
 }
 function create_transition_matrix($state_count){
+
+    if($state_count["P3"]==0){
+        $state_count["P3"] = 0.01;
+    }
     $transition_matrix = array(
         array($state_count["P_11"]/$state_count["P1"] , $state_count["P_12"]/$state_count["P1"], $state_count["P_13"]/$state_count["P1"], $state_count["P_14"]/$state_count["P1"]),
         array($state_count["P_21"]/$state_count["P2"] , $state_count["P_22"]/$state_count["P2"], $state_count["P_23"]/$state_count["P2"], $state_count["P_24"]/$state_count["P2"]),
@@ -278,10 +282,20 @@ function predict_for_closing_price($stock){
     $probabilities = find_transition_probabilities($transition_matrix);
 
     $probable_range = find_probable_range($stock, "close", $range);
-    for ($i=0; $i < 4 ; $i++) {
-        echo "<p>There is a " . $probabilities[$i]*100 . "% chance that the tommorrows closing price of {$stock} will lie from $" . $probable_range[$i] . " to $" . $probable_range[$i+1] . "</p>";
-        echo "<br/>";
+    $max_val=0;
+    foreach ($probabilities as $key => $value) {
+        if ($value > $max_val) {
+            $max_key = $key;
+            $max_val = $value;
+        }
     }
+
+    echo "Tomorrow's rate: $".number_format((float)$probable_range[$max_key], 2, '.', '')." - $".number_format((float)$probable_range[$max_key+1], 2, '.', '');
+
+    //for ($i=0; $i < 4 ; $i++) {
+      //  echo "<p>There is a " . $probabilities[$i]*100 . "% chance that the tommorrows closing price of {$stock} will lie from $" . $probable_range[$i] . " to $" . $probable_range[$i+1] . "</p>";
+        //echo "<br/>";
+    //}
 }
 function fill_input($field){
     if (isset($_POST["$field"])) {

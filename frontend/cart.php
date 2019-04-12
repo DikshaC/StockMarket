@@ -147,6 +147,7 @@
             <td> <?php echo $result['companyName'] ?> </td>
             <td><?php echo $result['total_price'] ?></td>
             <td><?php echo $result['quantity'] ?></td>
+
             <td><?php echo $result['buy_sell'] ?></td>
             <td ><i  id="<?php echo $result['id'] ?>"  class="fa fa-trash"  aria-hidden="true"></i></td>
         </tr>

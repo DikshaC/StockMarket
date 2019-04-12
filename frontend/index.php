@@ -260,7 +260,7 @@
                         <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction">
                             <p>
                                 <?php
-                                $stock = 'GOOGL';
+                                $stock = $data_arr[$i]['symbol'];
                                 predict_for_closing_price($stock);
                                 ?>
                             </p>
