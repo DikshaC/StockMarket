@@ -199,7 +199,7 @@
         ?>
             <div class="card col-xs-12 col-sm-6 col-md-4" style="margin: 8px; padding-right: 0px; padding-left: 0px" id="<?php echo 'card'.$j.$data_arr[$i]['id']; ?>" >
                 <div style="padding-top: 2px">
-                    <img src="<?php echo $data_arr[$i]['image']?>" style="width: 20%; float:left" class="card-img-top" src="..." alt="Card image cap">
+                    <img src="<?php echo $data_arr[$i]['image']?>" style="border-style:solid; width: 20%; float:left" class="card-img-top" src="..." alt="Card image cap">
                     <h5 id="<?php echo 'card'.$data_arr[$i]['id']; ?>_name" style="width: 60%; float:right" class="card-title"><?php echo $data_arr[$i]['name']; ?></h5>
                 </div>
                 <div class="card text-center" style="margin-left: 0px; margin-right: 0px" >
