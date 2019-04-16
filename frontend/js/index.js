@@ -23,6 +23,7 @@ $(document).ready(function () {
             price: $total_price,
             userId: $userId
         };
+
         $.ajax({
             type: "POST",
             url: "../frontend/indexHelper.php",

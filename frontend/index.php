@@ -1,3 +1,7 @@
+<?php
+session_start();
+if (isset($_SESSION['login_user'])) {
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -155,7 +159,7 @@
                         <li><a class="dropdown-item" href="transactionHistory.php">Transaction History</a></li>
                         <li><a class="dropdown-item" href="userProfile.php">Account Settings</a></li>
                         <li><a class="dropdown-item" href="userInventory.php">My Stocks</a></li>
-                        <li><a class="dropdown-item" href="login.php">LogOut</a></li>
+                        <li><a class="dropdown-item" href="logout.php">LogOut</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -443,3 +447,10 @@ echo $Paginator->createLinks( 'pagination' ); ?>
 <script src="js/main.js"></script>
 </body>
 </html>
+   <?php
+}
+
+else{
+    header("location: login.php");
+}
+    ?>

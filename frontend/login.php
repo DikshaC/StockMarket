@@ -65,7 +65,8 @@
                 //$row = mysqli_fetch_array($result2,MYSQLI_ASSOC);
                 if(password_verify($login_password,$user["pass"])) {
                     $_SESSION['login_user']=$login_username;
-                    echo "ddcdf";
+                    //echo "ddcdf";
+                    require("get_api_data.php");
                     header("location: index.php");// Initializing Session
                 }
                 else{

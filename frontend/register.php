@@ -123,7 +123,7 @@
             <span></span>
             <span></span>
         </button>
-        <a class="navbar-brand text-brand" href="login.html">
+        <a class="navbar-brand text-brand" href="login.php">
             <img src="img/bob.jpg" width="100" height="100"/>
             <span class="color-b">Bulls</span>
             <span class="color-a">Or</span>
@@ -220,6 +220,7 @@
 
             </div>
             <br>
+
             <div class="col col-md-11">
                 Email:<input class="col col-md-3 form-control" type="email" id="eid" name="email" placeholder="Email" required>
             </div>
