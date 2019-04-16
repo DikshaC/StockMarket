@@ -23,7 +23,9 @@ if (isset($_SESSION['login_user'])) {
         require('db_connection.php');
         global $connection;
         $conn = $connection;
-        $id = 1;
+
+        session_start();
+        $id = $_SESSION['userId'];
         $buy_query = "SELECT ut.id, c.name, td.price, td.quantity 
                   FROM user_transaction ut JOIN transaction_details td JOIN company c
                   ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='b'";

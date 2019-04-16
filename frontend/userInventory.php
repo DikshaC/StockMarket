@@ -23,7 +23,8 @@ if (isset($_SESSION['login_user'])) {
         require('db_connection.php');
         global $connection;
         $conn = $connection;
-        $userId = 1;
+
+        $userId = $_SESSION['userId'];
 
         $query = "SELECT user_stocks.num_shares as quantity, company.name as company_name 
         FROM user_stocks join company ON user_stocks.companyId=company.id where user_stocks.delete_flag=0 AND company.delete_flag=0 AND user_stocks.userId=".$userId;

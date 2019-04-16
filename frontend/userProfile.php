@@ -23,7 +23,7 @@ if (isset($_SESSION['login_user'])) {
         require('db_connection.php');
         global $connection;
         $conn = $connection;
-        $userId = 1;
+        $userId = $_SESSION['userId'];
         if(isset($_POST['submit']))
         {
             $update_query = "update person set NAME= '{$_POST['first_name']}',gender='{$_POST['gender']}',username='{$_POST['username']}',email='{$_POST['email']}',pass='{$_POST['password']}',phone={$_POST['phone']} where id=".$userId;

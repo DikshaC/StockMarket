@@ -9,7 +9,9 @@
 require('db_connection.php');
 global $connection;
 $conn = $connection;
-$userId = 1;
+
+session_start();
+$userId = $_SESSION['userId'];
 
 if(isset($_POST['cc_submit'])|| isset($_POST['pp_submit'])){
     if(isset($_POST['id'])){

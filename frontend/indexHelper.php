@@ -10,7 +10,9 @@
 require('db_connection.php');
 global $connection;
 $conn = $connection;
-$userId = 1;
+
+session_start();
+$userId = $_SESSION['userId'];
 if(isset($_POST['id'])) {
     $id = $_POST['id'];
     $quantity = $_POST['quantity'];

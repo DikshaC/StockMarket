@@ -25,7 +25,7 @@ if (isset($_SESSION['login_user'])) {
         require('db_connection.php');
         global $connection;
         $conn = $connection;
-        $userId = 1;
+        $userId = $_SESSION['userId'];
         session_start();
 
         if (isset($_POST['number'])) {
