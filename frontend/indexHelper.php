@@ -1,4 +1,5 @@
 <?php
+session_start();
 //var data = {
 //    id: $val,
 //            quantity : $quantity,
@@ -11,14 +12,14 @@ require('db_connection.php');
 global $connection;
 $conn = $connection;
 
-session_start();
+
 $userId = $_SESSION['userId'];
 if(isset($_POST['id'])) {
     $id = $_POST['id'];
     $quantity = $_POST['quantity'];
     $buy_sell = $_POST['buy_sell'];
     $price = $_POST['price'];
-    $userId = $_POST['userId'];
+
 
     $query1 = "SELECT num_shares FROM user_stocks where userId=".$userId." and companyId=".$id." and delete_flag=0";
     $results = $connection->query($query1);

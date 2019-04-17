@@ -26,7 +26,7 @@ if (isset($_SESSION['login_user'])) {
         global $connection;
         $conn = $connection;
         $userId = $_SESSION['userId'];
-        session_start();
+
 
         if (isset($_POST['number'])) {
             $id = $_POST['number'];
@@ -115,9 +115,12 @@ if (isset($_SESSION['login_user'])) {
                             <a class="dropdown-item" href="transactionHistory.php">Transaction History</a>
                             <a class="dropdown-item" href="userProfile.php">Account Settings</a>
                             <a class="dropdown-item" href="userInventory.php">My Stocks</a>
-                            <a class="dropdown-item" href="login.php">LogOut</a>
+                            <a class="dropdown-item" href="logout.php">LogOut</a>
                         </div>
                     </li>
+                        <?php
+                        if($_SESSION['login_user']=='admin') {
+                        ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown"
@@ -128,9 +131,13 @@ if (isset($_SESSION['login_user'])) {
                             <li><a class="dropdown-item" href="admin_addCompany.php">Add Company</a></li>
                             <li><a class="dropdown-item" href="admin_companyList.php">View Company</a></li>
                             <li><a class="dropdown-item" href="admin_sales_history.php">Sales History</a></li>
-                            <li><a class="dropdown-item" href="login.php">LogOut</a></li>
+                            <li><a class="dropdown-item" href="logout.php">LogOut</a></li>
                         </ul>
                     </li>
+
+                    <?php
+                    }
+                    ?>
                     <li class="nav-item">
                         <a class="nav-link" href="cart.php"><i class="fas fa-shopping-cart fa-2x"></i></a>
                     </li>
