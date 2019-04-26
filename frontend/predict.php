@@ -261,11 +261,16 @@ function predict_for_opening_price($stock){
 
     $probable_range = find_probable_range($stock, "open", $range);
 
-    for ($i=0; $i < 4 ; $i++) {
-        echo "<p>There is a " . $probabilities[$i]*100 . "% chance that the tommorrows opening price of {$stock} will lie from $" . $probable_range[$i] . " to $" . $probable_range[$i+1] . "</p>";
-
-        echo "<br/>";
+    $max_val=0;
+    foreach ($probabilities as $key => $value) {
+        if ($value > $max_val) {
+            $max_key = $key;
+            $max_val = $value;
+        }
     }
+
+    echo "Opening rate: $".number_format((float)$probable_range[$max_key], 2, '.', '')." - $".number_format((float)$probable_range[$max_key+1], 2, '.', '');
+
 }
 function predict_for_closing_price($stock){
 
@@ -290,7 +295,7 @@ function predict_for_closing_price($stock){
         }
     }
 
-    echo "Tomorrow's rate: $".number_format((float)$probable_range[$max_key], 2, '.', '')." - $".number_format((float)$probable_range[$max_key+1], 2, '.', '');
+    echo "Closing rate: $".number_format((float)$probable_range[$max_key], 2, '.', '')." - $".number_format((float)$probable_range[$max_key+1], 2, '.', '');
 
     //for ($i=0; $i < 4 ; $i++) {
       //  echo "<p>There is a " . $probabilities[$i]*100 . "% chance that the tommorrows closing price of {$stock} will lie from $" . $probable_range[$i] . " to $" . $probable_range[$i+1] . "</p>";

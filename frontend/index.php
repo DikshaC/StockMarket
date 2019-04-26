@@ -280,9 +280,21 @@ if (isset($_SESSION['login_user'])) {
                         </div>
                         <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction">
                             <p>
+
+                                <b>Prediction for tomorrow</b>:
+                                <br/>
+                                <br/>
+
                                 <?php
                                 $stock = $data_arr[$i]['symbol'];
                                 predict_for_closing_price($stock);
+                                ?>
+                                <br/>
+
+                                <br/>
+                                <?php
+                                $stock = $data_arr[$i]['symbol'];
+                                predict_for_opening_price($stock);
                                 ?>
                             </p>
                         </div>
@@ -292,9 +304,10 @@ if (isset($_SESSION['login_user'])) {
         <?php } $j=$j+3;?>
     </div>
 <?php } ?>
+    <?php
+    echo $Paginator->createLinks( 'pagination' ); ?>
+
 </div>
-<?php
-echo $Paginator->createLinks( 'pagination' ); ?>
 
 <!--/ footer Star /-->
 <section class="section-footer">
