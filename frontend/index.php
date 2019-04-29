@@ -32,7 +32,7 @@ if (isset($_SESSION['login_user'])) {
         $limit = 6;
         $page = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
 
-        $query = "SELECT * FROM Company";
+        $query = "SELECT * FROM Company where delete_flag = 0";
         $search_results = $conn ->query($query);
 
         if(isset($_POST['sort_stock'])){
@@ -41,11 +41,11 @@ if (isset($_SESSION['login_user'])) {
             }
             $_SESSION['sort_stock']=$val;
             switch($val){
-                case 1: $query = "SELECT * FROM Company ORDER BY name"; break;
-                case 2: $query = "SELECT * FROM company ORDER BY name DESC"; break;
-                case 3: $query = "SELECT * FROM Company ORDER BY price"; break;
-                case 4: $query = "SELECT * FROM Company ORDER BY price DESC"; break;
-                default: $query = "SELECT * FROM Company";
+                case 1: $query = "SELECT * FROM Company where delete_flag = 0 ORDER BY name"; break;
+                case 2: $query = "SELECT * FROM company where delete_flag = 0 ORDER BY name DESC"; break;
+                case 3: $query = "SELECT * FROM Company where delete_flag = 0 ORDER BY price"; break;
+                case 4: $query = "SELECT * FROM Company where delete_flag = 0 ORDER BY price DESC"; break;
+                default: $query = "SELECT * FROM Company where delete_flag = 0";
             }
             $_POST['sort_stock'] = null;
         }
