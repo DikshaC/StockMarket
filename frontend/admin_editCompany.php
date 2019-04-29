@@ -84,7 +84,7 @@
 
         if(isset($_GET['id'])) {
             $id = $_GET['id'];
-            $edit_query = "Select * from company where id=".$id;
+            $edit_query = "Select * from company where delete_flag = 0 and id=".$id;
             $results = $connection->query($edit_query);
         }
     ?>
