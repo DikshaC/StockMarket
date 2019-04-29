@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (isset($_SESSION['login_user'])) {
-    ?>
-<!DOCTYPE html>
+?>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <title>Bulls Or Bears Investors</title>
 
@@ -265,9 +265,11 @@ if (isset($_SESSION['login_user'])) {
                                     <div style="padding-top: 5px">
                                         <button type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_cart_button"  class="btn btn-success car" >Add to cart</button>
                                         <button type="button" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_checkout_button"  class="btn btn-success checkout">Checkout</button>
+
                                     </div>
                             </div>
                         </div>
+
                         <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_details" >
                             <p>
                                 Open: <?php echo $data_arr[$i]['open']; ?> <br>
@@ -278,33 +280,49 @@ if (isset($_SESSION['login_user'])) {
                             </p>
 
                         </div>
+
                         <div class="tab-pane" id="<?php echo 'card'.$data_arr[$i]['id']; ?>_prediction">
-                            <p>
-
-                                <b>Prediction for tomorrow</b>:
-                                <br/>
-                                <br/>
-
-                                <?php
-                                $stock = $data_arr[$i]['symbol'];
-                                predict_for_closing_price($stock);
+                            <?php
+                            $query_check = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'".$data_arr[$i]['symbol']."'";
+                            $result_check = $conn->query($query_check);
+                            if($result_check->num_rows>0) {
                                 ?>
-                                <br/>
+                                <p>
 
-                                <br/>
+                                    <b>Prediction for tomorrow</b>:
+                                    <br/>
+                                    <br/>
+
+                                    <?php
+                                    $stock = $data_arr[$i]['symbol'];
+                                    predict_for_closing_price($stock);
+                                    ?>
+                                    <br/>
+
+                                    <br/>
+                                    <?php
+                                    $stock = $data_arr[$i]['symbol'];
+                                    predict_for_opening_price($stock);
+                                    ?>
+                                </p>
                                 <?php
-                                $stock = $data_arr[$i]['symbol'];
-                                predict_for_opening_price($stock);
+                            }
+                            else{
                                 ?>
-                            </p>
+                                <p>No prediction data available</p>
+                            <?php
+                            }
+                            ?>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         <?php } $j=$j+3;?>
     </div>
-<?php } ?>
-    <?php
+<?php }
+
     echo $Paginator->createLinks( 'pagination' ); ?>
 
 </div>
@@ -469,10 +487,11 @@ if (isset($_SESSION['login_user'])) {
 <script src="js/main.js"></script>
 </body>
 </html>
-   <?php
+
+    <?php
 }
 
 else{
     header("location: login.php");
 }
-    ?>
+?>
