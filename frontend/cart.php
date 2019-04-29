@@ -25,6 +25,7 @@ if (isset($_SESSION['login_user'])) {
         require('db_connection.php');
         global $connection;
         $conn = $connection;
+        session_start();
         $userId = $_SESSION['userId'];
 
 
@@ -52,7 +53,7 @@ if (isset($_SESSION['login_user'])) {
         }
 
         $query = "SELECT cart.id AS id, cart.companyId as companyId, cart.total_price as total_price, cart.quantity as quantity, cart.buy_sell as buy_sell,cart.delete_flag as delete_flag, company.name as companyName 
-        FROM cart join company ON cart.companyId=company.id where cart.delete_flag=0 AND company.delete_flag=0 AND cart.userId=" . $userId;
+        FROM cart join company ON cart.companyId=company.id where cart.delete_flag=0 AND company.delete_flag=0 AND cart.userId=".$userId;
         $results = $conn->query($query);
         ?>
     </head>
