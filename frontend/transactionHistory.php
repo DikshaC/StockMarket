@@ -24,15 +24,15 @@ if (isset($_SESSION['login_user'])) {
         global $connection;
         $conn = $connection;
 
-        session_start();
+
         $id = $_SESSION['userId'];
         $buy_query = "SELECT ut.id, c.name, td.price, td.quantity 
                   FROM user_transaction ut JOIN transaction_details td JOIN company c
-                  ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='b'";
+                  ON ut.id=td.transactionId and ut.userId=".$id." and td.companyId=c.id AND td.buy_sell='b'";
         $buy_results = $conn->query($buy_query);
         $sell_query = "SELECT ut.id, c.name, td.price, td.quantity 
                   FROM user_transaction ut JOIN transaction_details td JOIN company c
-                  ON ut.id=td.transactionId and ut.userId={$id} and td.companyId=c.id AND td.buy_sell='s'";
+                  ON ut.id=td.transactionId and ut.userId=".$id." and td.companyId=c.id AND td.buy_sell='s'";
         $sell_results = $conn->query($sell_query);
     ?>
 </head>
@@ -120,6 +120,8 @@ if (isset($_SESSION['login_user'])) {
     <div class="tab-content card pt-5" id="myTabContentMD">
         <div class="tab-pane fade show active" id="Bought" role="tabpanel" aria-labelledby="home-tab-md">
             <table class="table">
+
+
                 <tr>
                     <th>S.No</th>
                     <th>Transaction Id</th>
@@ -127,13 +129,16 @@ if (isset($_SESSION['login_user'])) {
                     <th>Price</th>
                     <th>Quantity</th>
                 </tr>
-                <?php $i=0; while ($buy_result = $buy_results->fetch_assoc()) { $i=$i+1;?>
+                <?php $i=0;
+                while ($buy_result = $buy_results->fetch_assoc())
+                    { $i=$i+1;
+                ?>
                 <tr>
-                    <td><?php echo $i?></td>
-                    <td><?php echo $buy_result['id']?></td>
-                    <td><?php echo $buy_result['name']?></td>
-                    <td><?php echo $buy_result['price']?></td>
-                    <td><?php echo $buy_result['quantity']?></td>
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo $buy_result['id']; ?></td>
+                    <td><?php echo $buy_result['name']; ?></td>
+                    <td><?php echo $buy_result['price']; ?></td>
+                    <td><?php echo $buy_result['quantity']; ?></td>
                 </tr>
                 <?php } ?>
             </table>
@@ -149,11 +154,11 @@ if (isset($_SESSION['login_user'])) {
                 </tr>
                 <?php $i=0; while ($sell_result = $sell_results->fetch_assoc()) { $i=$i+1;?>
                 <tr>
-                    <td><?php echo $i?></td>
-                    <td><?php echo $sell_result['id']?></td>
-                    <td><?php echo $sell_result['name']?></td>
-                    <td><?php echo $sell_result['price']?></td>
-                    <td><?php echo $sell_result['quantity']?></td>
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo $sell_result['id']; ?></td>
+                    <td><?php echo $sell_result['name']; ?></td>
+                    <td><?php echo $sell_result['price']; ?></td>
+                    <td><?php echo $sell_result['quantity']; ?></td>
                 </tr>
                 <?php } ?>
             </table>

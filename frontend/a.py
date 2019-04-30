@@ -1,6 +1,5 @@
 from iexfinance.stocks import Stock
 
-
 from iexfinance.stocks import get_historical_data
 
 #print(get_historical_data("AAPL", output_format='pandas').tail(1))
