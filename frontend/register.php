@@ -1,12 +1,3 @@
-
-/
-/**
-* Created by PhpStorm.
-* User: nishi
-* Date: 4/6/2019
-* Time: 8:47 PM
-*/
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,14 +57,12 @@
         h1{
             font-weight: bold;
         }
-        p{
+        .p_style{
             color:#A9A9A9;
             font-family: "Times New Roman", "Times", "serif";
             font-weight: bold;
         }
     </style>
-
-
 </head>
 
 <body>
@@ -114,6 +103,26 @@
 </div>
 <!--/ Form Search End /-->
 
+<!--/ Modal Start /-->
+<div class="modal" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Message</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="error_msg"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ Modal End /-->
+
 <!--/ Nav Star /-->
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container-fluid">
@@ -136,121 +145,50 @@
 </nav>
 <!--/ Nav End /-->
 
-<!--/ Carousel Star /-->
-
-<!--<div class="intro intro-carousel">-->
-<!--    <div id="carousel" class="owl-carousel owl-theme">-->
-<!--        <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-1.jpg)">-->
-<!--            <div class="overlay overlay-a"></div>-->
-<!--            <div class="intro-content display-table">-->
-<!--                <div class="table-cell">-->
-<!--                    <div class="container">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-lg-8">-->
-<!--                                <div class="intro-body">-->
-<!--                                    <h1 class="intro-title mb-4">How To Double Your Stock Returns in 2019</h1>-->
-<!--                                    <p class="intro-title-top">Even the biggest goals are achiveable if you have a road map on how to do it. Follow our steps and you will be your way</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-2.jpg)">-->
-<!--            <div class="overlay overlay-a"></div>-->
-<!--            <div class="intro-content display-table">-->
-<!--                <div class="table-cell">-->
-<!--                    <div class="container">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-lg-8">-->
-<!--                                <div class="intro-body">-->
-<!--                                    <h1 class="intro-title mb-4">What To Expect For The Markets Next Week</h1>-->
-<!--                                    <p class="intro-title-top">Investors will be watching oil prices as futures hit near term highs</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="carousel-item-a intro-item bg-image" style="background-image: url(img/slide-3.jpg)">-->
-<!--            <div class="overlay overlay-a"></div>-->
-<!--            <div class="intro-content display-table">-->
-<!--                <div class="table-cell">-->
-<!--                    <div class="container">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-lg-8">-->
-<!--                                <div class="intro-body">-->
-<!--                                    <h1 class="intro-title mb-4">Stock Market-->
-<!--                                        Basics</h1>-->
-<!--                                    <p class="intro-title-top">Want to know how the stock market really works?</p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--/ Carousel end /-->
-
-//delete from above
-<div class="container col col-md-4 border">
-    <div class="form-group">
-        <form action="registerAction.php" name="signupform" method="post">
-
+<div class="container col col-md-4 border register-form">
+    <div class="form-group" style="padding-top: 10px;">
+        <form action="registerAction.php" name="signupform" method="post" >
             <h1>Sign Up</h1>
-            <p>Please fill in this form to create an account!</p>
+            <p class="p_style">Please fill in this form to create an account!</p>
             <hr >
             <div class="col col-md-12" id ="flid">
-                <div  class="col col-md-6">
-                    Name:<input class="form-control" type="text" id="fid" name="name" placeholder="Enter Name">
-                    <br>
+                <div  class="col col col-md-8">
+                    <label for="fid">Name</label>
+                    <input class="form-control" type="text" id="fid" name="name" placeholder="Enter Name" required>
                 </div>
-                <div class="col col-md-6">
-                    Username:<input class="form-control" type="text" id="lid" name="username" placeholder="User Name" required>
+                <br>
+                <div class="col col col-md-8">
+                    <label for="lid">Username</label>
+                    <input class="form-control" type="text" id="lid" name="username" placeholder="User Name" required>
                 </div><br>
-                <div class="col col-md-6">
-                   Gender:<br>
-                   Male <input type="radio" name="gender" value="male">
-                    Female <input  type="radio" name="gender" value="female">
+                <div class="col col col-md-8">
+                    Gender<br>
+                    <label for="male">Male</label>
+                    <input type="radio" name="gender" id="male" value="male">
+                    <label for="female">Female</label> <input  type="radio" id="female" name="gender" value="female">
                 </div>
-
             </div>
-            <br>
-
             <div class="col col-md-11">
-                Email:<input class="col col-md-3 form-control" type="email" id="eid" name="email" placeholder="Email" required>
-            </div>
-            <br>
-
-            <div class="col col-md-11">
-              Password  <input class="col col-md-3 form-control" type="password" id="pid" name="password" placeholder="Password">
+                <label for="eid">Email</label>
+                <input class="col col-md-8 form-control" type="email" id="eid" name="email" placeholder="Email" required>
             </div>
             <br>
             <div class="col col-md-11">
-              Phone no:  <input class="col col-md-3 form-control" type="text" id="ppid" name="phone" placeholder="Enter Phone">
+                <label for="pid">Password</label>
+                <input class="col col-md-8 form-control" type="password" id="pid" name="password" placeholder="Password"  required>
             </div>
             <br>
-            <br>
+            <div class="col col-md-11">
+                <label for="ppid">Phone no</label>
+                <input class="col col-md-8 form-control" type="text" id="ppid" name="phone" placeholder="Phone"  required>
+            </div>
             <br>
             <div class="col col-md-12">
                 <input form-control" type="checkbox" name="termscheck" id="tcheck">
                 <label id="termstextid"><span class="colorgrey">I accept the</span> <span class="colorblue">Terms of Use</span> <span class="colorgrey">& </span><span class="colorblue">Privacy Policy</span></label>
             </div>
-            <br>
-            <br>
-            <br>
-            <input class="btn btn-primary" type="submit" value="Sign Up" name="signup" >
-            <!--<span><?php echo ($error)?></span>-->
-            <span>
-                <?php if(isset($_GET['msg']))
-                echo $_GET['msg'];
-                 ?>
-            </span>
-
+            <input class="btn btn-success" type="submit" value="Sign Up" name="signup" >
+            <input class="btn" type="reset" value="Reset" name="reset" >
         </form>
     </div>
 </div>
