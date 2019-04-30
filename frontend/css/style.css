@@ -2102,4 +2102,10 @@ footer .credits {
   color: #4CAF50;
 }
 
+.register-form{
+  margin-top: 150px;
+  border-width: 2px !important;
+  border-radius: 12px;
+}
+
 

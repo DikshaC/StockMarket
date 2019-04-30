@@ -24,61 +24,73 @@ $error="";
             $gender = $_POST["gender"];
         }
         if ($username == "" || $name == "" || $phone == "" || $email == "" || $gender == "" || $password == "") {
-           // echo  "enter everything";
             if ($username == ""){
-                $msg = "Enter username";
-                header("Location: register.php?msg=$msg");
+                $username_msg = "Enter username";
+                header("Location: register.php?uername_msg=$username_msg");
             }
 
             if($name == ""){
-                $msg = "Enter name";
-                header("Location: register.php?msg=$msg");
+                $name_msg = "Enter name";
+                header("Location: register.php?name_msg=$name_msg");
             }
 
             if($phone == ""){
-                $msg = "Enter phone";
-                header("Location: register.php?msg=$msg");
+                $phone_msg = "Enter phone";
+                header("Location: register.php?phone_msg=$phone_msg");
             }
 
             if($email == ""){
-                $msg = "Enter email";
-                header("Location: register.php?msg=$msg");
+                $email_msg = "Enter email";
+                header("Location: register.php?email_msg=$email_msg");
             }
 
             if($gender == ""){
-                $msg = "Enter gender";
-                header("Location: register.php?msg=$msg");
+                $gender_msg = "Enter gender";
+                header("Location: register.php?gender_msg=$gender_msg");
             }
 
             if($password == ""){
-                $msg = "Enter password";
-                header("Location: register.php?msg=$msg");
+                $password_msg = "Enter password";
+                header("Location: register.php?password_    msg=$password_msg");
             }
-
         }
         else {
             $sql = "SELECT * FROM person where username='".$username."' or email='".$email."'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
-               // echo "user or email already exists!!";
-                  //  alert(user or email already exists);
                     $msg = "User or email already exists";
                     header("Location: register.php?msg=$msg");
                 }
 
             else {
-
                 $sql = "INSERT INTO person (NAME,gender,username,email,pass,phone) VALUES ('".$name."','".$gender."','".$username."','".$email."','".$password."','".$phone."')";
                 $conn->query($sql);
-                header("location: login.php");// Initializing Session
-                //header("Location: http://localhost/StockMarket/frontend/login.php");
-
-
+                header("location: login.php");
             }
         }
 
 }
+
+    if(isset($_POST['user'])) {
+        $username = $_POST['user'];
+        $query1 = "SELECT * FROM person where username='".$username."'";
+        $result = $connection->query($query1);
+        if($result->num_rows>0){
+            echo "username already exists!!";
+
+        }
+    }
+
+    if(isset($_POST['email'])) {
+        $email = $_POST['email'];
+        $query = "SELECT * FROM person where email='".$email."'";
+        $result = $connection->query($query);
+
+        if($result->num_rows){
+            echo "email already exists!!";
+        }
+    }
 $conn->close();
 
 ?>
